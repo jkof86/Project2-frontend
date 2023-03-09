@@ -1,0 +1,28 @@
+div {
+    position: relative;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: 10%;
+    
+}
+
+button {
+    border-radius: 6px;
+    background-color: rgb(249, 107, 107);
+    padding: 25px;
+    margin: 10px;
+    font-size: 25px;
+    border: 2px solid black;
+    cursor: pointer; 
+    transition: background 0.8s; 
+    background-position: center;
+   
+}
+
+button:active {
+    top: 3px;
+    transform: translateY(5px);
+}
+
