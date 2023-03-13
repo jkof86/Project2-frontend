@@ -4,8 +4,8 @@ div {
     flex-direction: column; 
     justify-content: space-between; 
     align-items: center; 
-    margin-top: 10%;
-    
+    margin-top: 8%;
+    /* background-color: rgb(199, 251, 169); */
 }
 
 button {
@@ -13,7 +13,6 @@ button {
     background-color: rgb(249, 107, 107);
     padding: 25px;
     margin: 10px;
-    font-size: 25px;
     border: 2px solid black;
     cursor: pointer; 
     transition: background 0.8s; 
@@ -26,3 +25,13 @@ button:active {
     transform: translateY(5px);
 }
 
+.grid-container {
+    display: grid; 
+    grid-template-columns: auto auto;
+}
+
+.grid-item {
+    padding: 10px; 
+    text-align: center;
+    font-size: 25px; 
+}

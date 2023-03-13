@@ -8,7 +8,7 @@ function StartScreen() {
     /* At a later time, add redirects for other game choices 
     When game starts, will need to generate a way to have others join an existing game */
 
-    interface Lobby {
+    /*interface Lobby {
         gameId: number; 
     }
 
@@ -21,12 +21,15 @@ function StartScreen() {
     
     const loadExistingLobbies() {
         
-    }; 
+    }; */
 
-    return (<div>
-        <Link to="/game"><button>START BLACKJACK</button></Link>
-        <button>OTHER GAME</button>
-        <button>OTHER GAME</button>
+    return (<div className="grid-container">
+        <div className="grid-item">LOBBY 1</div>
+        <Link to="/game"><button className="grid-item">START BLACKJACK</button></Link>
+        <div className="grid-item">LOBBY 2</div>
+        <Link to="/game"><button className="grid-item">JOIN LOBBY</button></Link>
+        <div className="grid-item">LOBBY 3</div>
+        <Link to="/game"><button className="grid-item">JOIN LOBBY</button></Link>
     </div>)
 }
 
