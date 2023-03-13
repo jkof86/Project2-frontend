@@ -23,13 +23,16 @@ function StartScreen() {
         
     }; */
 
-    return (<div className="grid-container">
+    return (<div>
+        <h1>Choose your hand...</h1>
+    <div className="grid-container">
         <div className="grid-item">LOBBY 1</div>
-        <Link to="/game"><button className="grid-item">START BLACKJACK</button></Link>
+        <Link to="/game"><button>START GAME</button></Link>
         <div className="grid-item">LOBBY 2</div>
-        <Link to="/game"><button className="grid-item">JOIN LOBBY</button></Link>
+        <Link to="/game"><button>JOIN LOBBY</button></Link>
         <div className="grid-item">LOBBY 3</div>
-        <Link to="/game"><button className="grid-item">JOIN LOBBY</button></Link>
+        <Link to="/game"><button>JOIN LOBBY</button></Link>
+    </div>
     </div>)
 }
 
