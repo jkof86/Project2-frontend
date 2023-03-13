@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../cardmeister.github.io-master 2/elements.cardmeister.full';
-import { result, shuffle } from 'lodash';
+import { shuffle } from 'lodash';
 import './Game.css'
 
 
@@ -39,20 +39,33 @@ const Game = () => {
   const [isDealersTurn, setIsDealersTurn] = useState(false); //informs our app whose turn it is
   const [isDealerBusted, setIsDealerBusted] = useState(false); //if the dealer scores over 21 
   const [isHandComplete, setIsHandComplete] = useState(true);//if a winning event happens like blackjack or bust
-  const [winner, setWinner] = useState("") 
+  const [winner, setWinner] = useState("");
+  const [cardsDealt, setCardsDealt] = useState(false);
 
-  //deal the cards
-  useEffect(() => {
-    setPlayersCards(randomizedDeck.slice(0, 2))
-    setDealerCards(randomizedDeck.slice(2,4))
-    setRandomizedDeck(randomizedDeck.slice(3))
-  }, [])
-  
+  const dealCards = () => {
+    setIsDealersTurn(false);
+    setIsHandComplete(false);
+
+    const newPlayersCards = randomizedDeck.slice(0, 2);
+    const newDealerCards = randomizedDeck.slice(2, 4);
+
+    setPlayersCards(newPlayersCards);
+    setDealerCards(newDealerCards);
+    setRandomizedDeck(randomizedDeck.slice(4));
+    setCardsDealt(true);
+  };
+
   return (
     <div className="gameBoard">
       <div className="dealerCards">
         {dealerCards.map((card, index) => (
-          <card-t key={index} rank={card.rank} suit={card.suit} />
+          <div key={index} className="cardWrapper">
+            {index === 0 && !isDealersTurn ? (
+              <card-t cid="00" backtext="BACK" />
+            ) : (
+              <card-t rank={card.rank} suit={card.suit} />
+            )}
+          </div>
         ))}
       </div>
       <div className="playerCards">
@@ -60,6 +73,7 @@ const Game = () => {
           <card-t key={index} rank={card.rank} suit={card.suit} />
         ))}
       </div>
+      {!cardsDealt && <button onClick={dealCards}>Deal</button>}
     </div>
   );
 };
