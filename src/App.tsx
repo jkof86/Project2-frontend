@@ -1,11 +1,9 @@
 import './App.css';
-import Game from './components/Game';
+import StartScreen from './components/Start/StartScreen';
 
 function App() {
   return (
-    <div className="App">
-      <Game />
-    </div>
+    <StartScreen/>
   );
 }
 
