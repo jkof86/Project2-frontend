@@ -5,6 +5,9 @@ import App from './App';
 import Game from './components/Game';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
+import Landing from './components/Landing/Landing';
+import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,8 +16,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path = "/" element = {<App />} />
+        <Route path = "/App" element = {<App />} />
         <Route path = "/game" element = {<Game/>}/>
+        <Route path="/" element={<Landing />} />
+        <Route path="/Registration" element={<Registration />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
     

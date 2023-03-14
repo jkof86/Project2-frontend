@@ -41,7 +41,7 @@ button:active {
     color: rgb(170, 162, 162);
 }
 
-button {
+.start-button {
     border-radius: 10px;
     background-image: linear-gradient(to bottom right, rgb(163, 8, 8), rgb(253, 84, 104));
     padding: 15px 30px;
@@ -54,7 +54,7 @@ button {
     color: white;
 }
 
-h1 {
+.start-h1 {
     color: rgb(170, 162, 162);
     margin: 0;
 }
