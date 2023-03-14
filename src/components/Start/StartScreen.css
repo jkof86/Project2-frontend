@@ -1,11 +1,22 @@
-div {
+.beans {
     position: relative;
-    display: flex; 
+    display: flex;  
     flex-direction: column; 
-    justify-content: space-between; 
-    align-items: center; 
-    /* margin-top: 8%; */
-    /* background-color: rgb(199, 251, 169); */
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: url("https://thumbs.gfycat.com/ColdWellgroomedIrukandjijellyfish-size_restricted.gif");
+    min-height: 100vh;
+    animation: animateBg 10s linear infinite;
+    background-size: cover;
+  }
+
+@keyframes animateBg {
+   from {
+     background-position: 0 0;
+   }
+   to {
+     background-position: 100% 0;
+   }
 }
 
 
@@ -20,10 +31,12 @@ button:active {
 }
 
 .grid-item {
-    padding: 10px; 
+    padding: 20px; 
     text-align: center;
     font-size: 25px; 
-    font-family: Helvetica;
+    font-family: Verdana;
+    font-weight: bold;
+    color: rgb(170, 162, 162);
 }
 
 button {
@@ -38,4 +51,9 @@ button {
     font-size: 20px;
     font-family: Helvetica;
     color: white;
+}
+
+h1 {
+    color: rgb(170, 162, 162);
+    margin: 0;
 }
