@@ -1,0 +1,60 @@
+.beans {
+    position: relative;
+    display: flex;  
+    flex-direction: column; 
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: url("https://thumbs.gfycat.com/ColdWellgroomedIrukandjijellyfish-size_restricted.gif");
+    min-height: 100vh;
+    animation: animateBg 10s linear infinite;
+    background-size: cover;
+  }
+
+@keyframes animateBg {
+   from {
+     background-position: 0 0;
+   }
+   to {
+     background-position: 100% 0;
+   }
+}
+
+
+button:active {
+    top: 3px;
+    transform: translateY(5px);
+}
+
+.grid-container {
+    display: grid; 
+    grid-template-columns: auto auto;
+}
+
+.grid-item {
+    padding: 20px; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 25px; 
+    font-family: Verdana;
+    font-weight: bold;
+    color: rgb(170, 162, 162);
+}
+
+button {
+    border-radius: 10px;
+    background-image: linear-gradient(to bottom right, rgb(163, 8, 8), rgb(253, 84, 104));
+    padding: 15px 30px;
+    margin: 10px;
+    cursor: pointer; 
+    transition: background 0.8s; 
+    background-position: center;
+    font-size: 20px;
+    font-family: Helvetica;
+    color: white;
+}
+
+h1 {
+    color: rgb(170, 162, 162);
+    margin: 0;
+}
