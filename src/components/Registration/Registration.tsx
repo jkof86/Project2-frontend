@@ -3,7 +3,7 @@ import './Registration.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { StringLiteral } from 'typescript';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
  interface RegistrationValues { 
     email: string; 
@@ -42,6 +42,7 @@ const Registration: React.FC = () => {
         password: '', 
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async (values: RegistrationValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     try {
         console.log(`Email: ${values.email}, Username: ${values.username}, Password: ${values.password}`);
@@ -52,7 +53,10 @@ const Registration: React.FC = () => {
         setSubmitting(false);
     }
 
-    //Fill w code to send data to the server for adding a new user somewhere in this function 
+    //Fill w code to send data to the server for adding a new user somewhere in this function
+
+    //Navigate to the new page
+    navigate("/Login");
 };
 
     return (
@@ -61,38 +65,35 @@ const Registration: React.FC = () => {
         <div className="card">
             <h2>Gambler Signup</h2>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {({ errors, touched, isSubmitting }) => (
+            {({ errors, touched, isSubmitting, handleSubmit }) => (
                 
-                <form>
-                <label>
-                    Email: 
-                    <Field type="email" name="email" required />
-                    <ErrorMessage name="email" component="div" className="error" /> 
-                </label>
-                <label>
-                    Username:
-                    <Field type="text" name="username" required />
-                    <ErrorMessage name="username" component="div" className="error" /> 
-                </label>
-                <label>
-                    Password:
-                    <Field type="password" name="password" required/>
-                    <ErrorMessage name="password" component="div" className="error" /> 
-                </label>
-                <label>
-                    Confirm Password:
-                    <Field type="passwordConfirmation" name="passwordConfirmation" required/>
-                    <ErrorMessage name="passwordConfirmation" component="div" className="error" /> 
-                </label>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Email: 
+                        <Field type="email" name="email" required />
+                        <ErrorMessage name="email" component="div" className="error" /> 
+                    </label>
+                    <label>
+                        Username:
+                        <Field type="text" name="username" required />
+                        <ErrorMessage name="username" component="div" className="error" /> 
+                    </label>
+                    <label>
+                        Password:
+                        <Field type="password" name="password" required/>
+                        <ErrorMessage name="password" component="div" className="error" /> 
+                    </label>
+                    <label>
+                        Confirm Password:
+                        <Field type="passwordConfirmation" name="passwordConfirmation" required/>
+                        <ErrorMessage name="passwordConfirmation" component="div" className="error" /> 
+                    </label>
+                    <button type="submit" className="registration-button">Register</button>
 
-                <Link to="/Login" className="button-link">
-              <button className="registration-button">Register</button>
-                </Link>
-
-                <div>
-                <Link to="/Login"> Already have an account? Click here </Link>
-                </div>
-            </form>
+                    <div> {/*this is here to get block type*/}
+                        <Link to="/Login"> Already have an account? Click here </Link>
+                    </div>
+                </form>
             )}
             </Formik>
         </div>
