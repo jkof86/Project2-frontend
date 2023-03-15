@@ -1,9 +1,9 @@
-/* card-t {
+card-t {
     height: 250%;
     width: 150%;
-} */
+}
 
-/* .gameBoard {
+.gameBoard {
     height: calc(100vh - 40px - 2 * 20px);
     width: calc(100vw - 40px - 2 * 20px);
     background-color: green;
@@ -36,4 +36,4 @@ button {
     cursor: pointer;
     border-radius: 5px;
     border: 2px solid rgb(27, 27, 27);
-} */
+}
