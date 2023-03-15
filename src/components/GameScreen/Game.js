@@ -45,33 +45,89 @@ const Game = () => {
   const dealCards = () => {
     setIsDealersTurn(false);
     setIsHandComplete(false);
-
-    const newPlayersCards = randomizedDeck.slice(0, 2);
-    const newDealerCards = randomizedDeck.slice(2, 4);
-
+  
+    const newPlayersCards = randomizedDeck.slice(0, 2).map((card, index) => ({
+      ...card,
+      facingUp: true // All player cards are face up
+    }));
+    const newDealerCards = randomizedDeck.slice(2, 4).map((card, index) => ({
+      ...card,
+      facingUp: index === 0 ? false : true // Only the first dealer card is face down
+    }));
+  
     setPlayersCards(newPlayersCards);
     setDealerCards(newDealerCards);
     setRandomizedDeck(randomizedDeck.slice(4));
     setCardsDealt(true);
   };
-
+  
+  const calculateHand = (cards) => {
+    let count = 0;
+    let hasAce = false;
+  
+    for (let i = 0; i < cards.length; i++) {
+      if (!cards[i].facingUp) continue;
+  
+      const rank = cards[i].rank;
+  
+      if (rank === "Ace") {
+        hasAce = true;
+        continue;
+      }
+  
+      if (rank === "King" || rank === "Queen" || rank === "Jack") {
+        count += 10;
+      } else {
+        count += parseInt(rank);
+      }
+    }
+  
+    if (hasAce && count + 10 <= 21) {
+      count += 10;
+    }
+  
+    return count;
+  }
+  
   return (
     <div className="gameBoard">
       <div className="dealerCards">
-        {dealerCards.map((card, index) => (
-          <div key={index} className="cardWrapper">
-            {index === 0 && !isDealersTurn ? (
-              <card-t cid="00" backtext="BACK" />
-            ) : (
-              <card-t rank={card.rank} suit={card.suit} />
-            )}
+        <div className="cardSection">
+          {dealerCards.map((card, index) => (
+            <div key={index} className="cardWrapper">
+              {index === 0 && !isDealersTurn ? (
+                <card-t rank="0" backtext="BACK" />
+              ) : (
+                <card-t rank={card.rank} suit={card.suit} />
+              )}
+            </div>
+          ))}
+        </div>
+        {cardsDealt && (
+          <div className="countContainer">
+            <div className="countBox">
+              <div className="countLabel">Dealer</div>
+              <div className="countValue">{calculateHand(dealerCards)}</div>
+            </div>
           </div>
-        ))}
+        )}
       </div>
       <div className="playerCards">
-        {playersCards.map((card, index) => (
-          <card-t key={index} rank={card.rank} suit={card.suit} />
-        ))}
+        <div className="cardSection">
+          {playersCards.map((card, index) => (
+            <div key={index} className="cardWrapper">
+              <card-t rank={card.rank} suit={card.suit} />
+            </div>
+          ))}
+        </div>
+        {cardsDealt && (
+          <div className="countContainer">
+            <div className="countBox">
+              <div className="countLabel">Player</div>
+              <div className="countValue">{calculateHand(playersCards)}</div>
+            </div>
+          </div>
+        )}
       </div>
       {!cardsDealt && <button className="game-button" onClick={dealCards}>Deal</button>}
     </div>
