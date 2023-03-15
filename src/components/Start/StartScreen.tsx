@@ -23,15 +23,20 @@ function StartScreen() {
         
     }; */
 
-    return (<div className="beans">
-        <h1>Shuffle the deck...</h1>
+    return (<div className="bg">
+    <h1 className="start-title">Shuffle the deck...</h1>
+    <div className="beans">
     <div className="grid-container">
         <div className="grid-item">LOBBY 1</div>
-        <Link to="/game"><button>START GAME</button></Link>
+        <Link to="/game"><button>JOIN TABLE</button></Link>
         <div className="grid-item">LOBBY 2</div>
-        <Link to="/game"><button>JOIN LOBBY</button></Link>
+        <Link to="/game"><button>JOIN TABLE</button></Link>
         <div className="grid-item">LOBBY 3</div>
-        <Link to="/game"><button>JOIN LOBBY</button></Link>
+        <Link to="/game"><button>JOIN TABLE</button></Link>
+    </div>
+    <div>
+        <button>CREATE NEW GAME</button>
+    </div>
     </div>
     </div>)
 }

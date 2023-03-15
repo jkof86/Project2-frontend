@@ -1,24 +1,27 @@
-.beans {
-    position: relative;
-    display: flex;  
-    flex-direction: column; 
-    justify-content: space-evenly;
-    align-items: center;
-    background-image: url("https://thumbs.gfycat.com/ColdWellgroomedIrukandjijellyfish-size_restricted.gif");
-    min-height: 100vh;
-    animation: animateBg 10s linear infinite;
+.bg {
+  margin-top: 0;  
+  background-image: url("https://thumbs.gfycat.com/ColdWellgroomedIrukandjijellyfish-size_restricted.gif");
+  min-height: 100vh;
+  animation: animateBg 10s linear infinite;
     background-size: cover;
-  }
-
-@keyframes animateBg {
-   from {
-     background-position: 0 0;
-   }
-   to {
-     background-position: 100% 0;
-   }
 }
 
+@keyframes animateBg {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.beans {
+  /* position: relative; */
+  display: flex;  
+  flex-direction: row; 
+  justify-content: space-evenly;
+  align-items: center;
+}
 
 button:active {
     top: 3px;
@@ -54,7 +57,8 @@ button {
     color: white;
 }
 
-h1 {
+.start-title {
     color: rgb(170, 162, 162);
-    margin: 0;
+    text-align: center;
+    /* margin: 0; */
 }
