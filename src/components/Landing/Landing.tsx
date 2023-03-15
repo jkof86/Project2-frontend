@@ -11,10 +11,10 @@ const Landing: React.FC = () => {
             <h1> Welcome High Roller! Please either login or register below to start the fun!</h1>
             <ul>
             <Link to="/Registration" className="button-link">
-              <button className="button">Register</button>
+              <button className="landing-button">Register</button>
             </Link>
             <Link to="/Login" className="button-link">
-              <button className="button">Login</button>
+              <button className="landing-button">Login</button>
             </Link>
             </ul>
         </div>

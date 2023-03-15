@@ -73,7 +73,7 @@ const Game = () => {
           <card-t key={index} rank={card.rank} suit={card.suit} />
         ))}
       </div>
-      {!cardsDealt && <button onClick={dealCards}>Deal</button>}
+      {!cardsDealt && <button className="game-button" onClick={dealCards}>Deal</button>}
     </div>
   );
 };

@@ -23,7 +23,7 @@ card-t {
     flex-direction: row;
 }
 
-button {
+.game-button {
     background-color: #13ade0;
     border: none;
     color: white;
