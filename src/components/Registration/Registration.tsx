@@ -86,11 +86,11 @@ const Registration: React.FC = () => {
                 </label>
 
                 <Link to="/Login" className="button-link">
-              <button className="registration-button">Login</button>
+              <button className="registration-button">Register</button>
                 </Link>
 
                 <div>
-                <Link to="/Login"> Don't have an account? Click here </Link>
+                <Link to="/Login"> Already have an account? Click here </Link>
                 </div>
             </form>
             )}
