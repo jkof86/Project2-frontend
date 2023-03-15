@@ -1,39 +1,97 @@
-/* card-t {
-    height: 250%;
-    width: 150%;
-} */
-
 .gameBoard {
-    height: calc(100vh - 40px - 2 * 20px);
-    width: calc(100vw - 40px - 2 * 20px);
+    height: calc(100vh - 80px);
+    width: calc(100vw - 80px);
     background-color: green;
-    border-radius: 0 0 50vw 50vw;
+    border-radius: 50vw;
     border: 10px solid rgb(27, 27, 27);
     box-sizing: border-box;
-    margin: 20px auto;
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
 }
+  
+.dealerCards, .playerCards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
 
 .dealerCards {
-    display: flex;
-    flex-direction: row;
+	margin-bottom: 100px;
+}
+  
+.playerCards {
+	margin-top: 100px;
+}
+  
+.cardWrapper {
+	width: 130px;
+	height: 200px;
+	border-radius: 10px;
+	border: 2px solid black;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+  
+.cardWrapper:first-child {
+	margin-right: -60px;
+}
+  
+.cardWrapper:nth-child(2) {
+	margin-right: -30px;
+}
+  
+.cardWrapper:last-child {
+	margin-left: -30px;
+}
+  
+.cardWrapper:last-child:before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	left: -5px;
+	width: 140px;
+	height: 220px;
+	border-radius: 10px;
+	border: 2px solid black;
+	z-index: -1;
 }
 
-button {
-    background-color: #13ade0;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 40px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 2px solid rgb(27, 27, 27);
-}
+.cardSection {
+	display: flex;
+	flex-wrap: wrap;
+  }
+  
+  .countContainer {
+	margin-top: 10px;
+  }
+  
+  .countBox {
+	display: inline-block;
+	margin-left: 70px;
+	padding: 10px;
+	background-color: #ffffff;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	font-size: 24px;
+	color: #000000;
+  }
+  
+  .countLabel {
+	font-weight: bold;
+	margin-bottom: 5px;
+  }
+  
+  .countValue {
+	font-size: 32px;
+	font-weight: bold;
+  }
+  
