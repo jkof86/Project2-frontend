@@ -1,7 +1,7 @@
-/* card-t {
+card-t {
     height: 250%;
     width: 150%;
-} */
+}
 
 .gameBoard {
     height: calc(100vh - 40px - 2 * 20px);
@@ -16,4 +16,24 @@
     align-items: center;
     justify-content: center;
     padding: 40px;
+}
+
+.dealerCards {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-button {
+    background-color: #13ade0;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(27, 27, 27);
 }
