@@ -132,7 +132,6 @@ const Game = () => {
       {!cardsDealt && <button onClick={dealCards}>Deal</button>}
     </div>
   );
-  
 };
 
 export default Game;
