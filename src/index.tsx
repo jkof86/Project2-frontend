@@ -1,29 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Game from './components/GameScreen/Game';
+import { store } from "./redux/store";
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import Game from "./components/GameScreen/Game";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import reportWebVitals from './reportWebVitals';
-import Landing from './components/Landing/Landing';
-import Registration from './components/Registration/Registration';
-import Login from './components/Login/Login';
+import reportWebVitals from "./reportWebVitals";
+import Landing from "./components/Landing/Landing";
+import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path = "/App" element = {<App />} />
-        <Route path = "/game" element = {<Game/>}/>
-        <Route path="/" element={<Landing />} />
-        <Route path="/Registration" element={<Registration />} />
-        <Route path="/Login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
-    
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/App" element={<App />} />
+          <Route path="/game" element={<Game />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/Registration" element={<Registration />} />
+          <Route path="/Login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

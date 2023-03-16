@@ -1,30 +1,29 @@
-import { createSlice , PayloadAction } from "@reduxjs/toolkit"; 
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Lobby {
-    gameId: number;
+  gameId: number;
 }
 
 interface LobbyList {
-    [gameID: number]: Lobby;
+  [gameID: number]: Lobby;
 }
 
 interface LobbyState {
-    lobbyList: LobbyList | null;
+  lobbyList: LobbyList | null;
 }
 
 const initialState: LobbyState = {
-    lobbyList: null
-} 
+  lobbyList: null,
+};
 
 export const lobbySlice = createSlice({
-    name: "lobbies", 
-    initialState,
-    reducers: {
-        loadLobbies: (state, action: PayloadAction<{lobbyList: LobbyList}>) => {
-            state.lobbyList = (action.payload.lobbyList); 
-        }
-    }
-})
+  name: "lobbies",
+  initialState,
+  reducers: {
+    loadLobbies: (state, action: PayloadAction<{ lobbyList: LobbyList }>) => {
+      state.lobbyList = action.payload.lobbyList;
+    },
+  },
+});
 
-export default lobbySlice.reducer; 
-// export const {}
+export default lobbySlice.reducer;
