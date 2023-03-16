@@ -16,15 +16,15 @@ function StartScreen() {
     }; */
 
     return (
-        <div className="beans">
-            <div className="grid-container">
+        <div className="bg">
+            <div className="grid-container beans">
                 <div className="start-title grid-item">
                     <h1 className="start-h1">Live Tables</h1>
                 </div>
                 <div className="menu-container grid-item">
                     <TableList />
                 </div>
-                <div><Link to="/creategame"><button className="new-game-btn">CREATE NEW TABLE</button></Link></div>
+                <div className="new-game-btn grid-item"><Link to="/creategame"><button className="new-game-btn">CREATE NEW TABLE</button></Link></div>
             </div>
         </div>
     )
