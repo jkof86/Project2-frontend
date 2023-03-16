@@ -1,37 +1,31 @@
 import "./StartScreen.css"; 
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
+
 
 
 function StartScreen() {
     
-    /* At a later time, add redirects for other game choices 
-    When game starts, will need to generate a way to have others join an existing game */
-
-    /*interface Lobby {
-        gameId: number; 
-    }
-
-    const [state, setState] = useState({
-        gameLobbies: [{
-            gameId: 0
-        }]
-    }); 
+    /* Will need an API fetch to retrieve all available lobbies and display them */
 
     
-    const loadExistingLobbies() {
-        
-    }; */
 
-    return (<div className="beans">
-        <h1 className="start-h1">Shuffle the deck...</h1>
+    return (<div className="bg">
+    <h1 className="start-title">Shuffle the deck...</h1>
+    <div className="beans">
     <div className="grid-container">
-        <div className="grid-item">LOBBY 1</div>
-        <Link to="/game"><button className="start-button">START GAME</button></Link>
-        <div className="grid-item">LOBBY 2</div>
-        <Link to="/game"><button className="start-button">JOIN LOBBY</button></Link>
-        <div className="grid-item">LOBBY 3</div>
-        <Link to="/game"><button className="start-button">JOIN LOBBY</button></Link>
+        <div className="grid-item">TABLE 1</div>
+        <Link to="/game"><button className="start-button">JOIN</button></Link>
+        <div className="grid-item">TABLE 2</div>
+        <Link to="/game"><button className="start-button">JOIN</button></Link>
+        <div className="grid-item">TABLE 3</div>
+        <Link to="/game"><button className="start-button">JOIN</button></Link>
+    </div>
+    <div>
+        <Link to="/creategame"><button>CREATE NEW GAME</button></Link>
+    </div>
     </div>
     </div>)
 }

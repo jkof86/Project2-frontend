@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import lobbyReducer from "../features/LobbySlice";
+import tableReducer from "../features/TableSlice";
 
 export const store = configureStore({
     reducer: {
-        lobbies: lobbyReducer
+        tables: tableReducer
     }
 }); 
 

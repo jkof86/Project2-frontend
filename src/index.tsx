@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Landing from './components/Landing/Landing';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
+import CreateNewGameForm from './components/CreateNewGame/CreateGame';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,11 +17,12 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path = "/App" element = {<App />} />
-        <Route path = "/game" element = {<Game/>}/>
+        <Route path="/App" element = {<App />} />
+        <Route path="/game" element = {<Game/>}/>
         <Route path="/" element={<Landing />} />
         <Route path="/Registration" element={<Registration />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/creategame" element = {<CreateNewGameForm/>}/>
       </Routes>
     </BrowserRouter>
     
