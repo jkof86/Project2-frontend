@@ -19,16 +19,14 @@ function StartScreen() {
         <div>
             <h1 className="start-h1">Choose a Table</h1>
             <div className="beans">
-                <div className="grid-container">
-                    <div className="menu-container grid-item">
-                        <TableList />
-                    </div>
+                <div className="menu-container grid-item">
+                    <TableList />
                 </div>
-                <div><Link to="/creategame"><button className="new-game-btn">CREATE NEW GAME</button></Link></div>
+                <div><Link to="/creategame"><button className="new-game-btn">CREATE NEW TABLE</button></Link></div>
             </div>
-            
-                
-            
+
+
+
         </div>
     )
 }

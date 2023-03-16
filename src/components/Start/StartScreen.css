@@ -20,29 +20,12 @@
   /* position: relative; */
   display: flex;  
   flex-direction: column; 
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
 button:active {
     transform: translateY(2px);
-}
-
-.grid-container {
-    display: grid; 
-    grid-template-columns: auto auto auto;
-    grid-template-rows: 1fr 2fr;
-}
-
-.grid-item {
-    padding: 20px; 
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-    font-size: 25px; 
-    font-family: Verdana;
-    font-weight: bold;
-    color: rgb(170, 162, 162);
 }
 
 .start-button {
@@ -60,6 +43,8 @@ button:active {
 
 .new-game-btn {
   text-align: center;
+  margin: auto;
+  margin-top: 20%; 
   /* grid-row: 1 / span 1;
   grid-column: 2 / span 1; */
 }
@@ -67,7 +52,7 @@ button:active {
 .start-h1 {
   color: rgb(170, 162, 162);
   text-align: center;
-  /* margin: 0; */
+  
 }
 
 .menu-container {
