@@ -32,6 +32,7 @@ button:active {
 }
 
 .grid-item {
+  position: relative;
     padding: 20px; 
     margin-top: 5px;
     margin-bottom: 5px;
@@ -62,8 +63,13 @@ button:active {
 }
 
 .start-h1 {
-  color: rgb(170, 162, 162);
+  font-size: 100px;
+  font-weight: 100;
+  background: -webkit-linear-gradient(#f8e2c3,#EC9A29);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin: 0;
+  font-family: 'Ewert';
 }
 
 .menu-container {

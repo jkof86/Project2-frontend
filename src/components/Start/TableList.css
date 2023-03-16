@@ -11,12 +11,14 @@
 .dropdown-title {
     display: block;
     position: relative;
-    width: 50vw;
-    background-color: #6b0202;
+    background-image: linear-gradient(
+        to bottom,
+        #6b0202,
+        #520101
+    );
     color: white;
     text-align: center;
 
-    margin: 0 auto 2px;
     padding: 10px;
     border: none;
     border-radius: 2px;
@@ -25,23 +27,55 @@
     z-index: 2;
 }
 
+.dropdown-list {
+    padding: 2px;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
 .dropdown-table {
     display: block;
     position: relative;
-    width: 50vw;
-    background-color: #960000;
+    width: 40vw;
+    background-image: linear-gradient(
+        to bottom, 
+        #a80101 0%,
+        #960000 50%,
+        #770303 50%,
+        #6b0202 100%
+        );
     margin: 2px auto;
     padding: 10px;
     z-index: 1;
 }
+.dropdown-table:hover {
+    background-image: linear-gradient(
+        to bottom, 
+        #cf5d5d 0%,
+        #a10c0c 50%,
+        #800808 50%,
+        #770606 100%
+        );
 
+}
 .dropdown-table:disabled {
-    display: block;
-    background-color: #9c7171;
+    background-image: linear-gradient(
+        to bottom, 
+        #af8383 0%,
+        #9c7171 50%,
+        #835454 50%,
+        #744848 100%
+        );
 }
 /* This overrides default behavior -don't delete- */
 .dropdown-table:disabled:hover {
-    background-color: #9c7171;
+    background-image: linear-gradient(
+        to bottom, 
+        #af8383 0%,
+        #9c7171 50%,
+        #835454 50%,
+        #744848 100%
+        );
 }
 /* This overrides parent class -don't delete- */
 .dropdown-table:disabled:active {
@@ -53,7 +87,6 @@
     font-size: 20px;
     padding: 10px;
 }
-
 .number-of-players {
     display: inline;
     font-size: 20px;

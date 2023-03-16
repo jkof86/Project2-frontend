@@ -5,6 +5,53 @@ import "./TableList.css";
 import Table from "./Table";
 import { replace } from "lodash";
 
+
+const fakeTables:TableProps[] = [{
+    name: "Jason's Table",
+    id: 0,
+    numberOfPlayers: 3
+},
+{
+    name: "Sus Table",
+    id: 1,
+    numberOfPlayers: 1
+},
+{
+    name: "Bingus Table",
+    id: 2,
+    numberOfPlayers: 5
+},
+{
+    name: "Cars Table",
+    id: 3,
+    numberOfPlayers: 4
+},
+{
+    name: "Frozen Table",
+    id: 4,
+    numberOfPlayers: 2
+},
+{
+    name: "Toy Story Table",
+    id: 5,
+    numberOfPlayers: 3
+},
+{
+    name: "Incredibles Table",
+    id: 6,
+    numberOfPlayers: 1
+},
+{
+    name: "Dinner Table",
+    id: 7,
+    numberOfPlayers: 4
+},
+{
+    name: "Rela Table",
+    id: 8,
+    numberOfPlayers: 5
+}];
+
 interface TableProps {
     name: string,
     id: number,
@@ -14,38 +61,23 @@ interface TableProps {
 function DropdownMenu() {
     const [tableList, setTableList] = useState<TableProps[]>(
         [{
-            name: "na",
-            id: 1,
-            numberOfPlayers: 0
+            name: "Failed to load tables",
+            id: 0,
+            numberOfPlayers: 5
         }]
     );
 
     const loadAllTables = () => {
         //Code here to load the tables from the server
-        const tableList = [{
-            name: "Jason's Table",
-            id: 0,
-            numberOfPlayers: 3
-        },
-        {
-            name: "Sus Table",
-            id: 1,
-            numberOfPlayers: 1
-        },
-        {
-            name: "Bingus Table",
-            id: 2,
-            numberOfPlayers: 5
-        }]
-        setTableList(tableList);
+        setTableList(fakeTables);
     }
 
     const navigate = useNavigate();
     const handleJoin = (id:number) => {
-        if(id > 0){
+        if(id === 1){
             window.location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
         } else {
-            navigate("/game");
+            //navigate("/game");
         }
     }
 

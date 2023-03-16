@@ -26,7 +26,7 @@ function StartScreen() {
         <div className="beans">
             <div className="grid-container">
                 <div className="start-title grid-item">
-                    <h1 className="start-h1">Choose a Table</h1>
+                    <h1 className="start-h1">Live Tables</h1>
                 </div>
                 <div className="menu-container grid-item">
                     <TableList/>

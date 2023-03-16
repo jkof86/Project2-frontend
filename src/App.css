@@ -41,3 +41,8 @@ img {
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Ewert';
+  src: url(./fonts/Ewert-Regular.ttf);
+}
