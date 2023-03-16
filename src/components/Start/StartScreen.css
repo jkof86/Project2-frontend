@@ -1,25 +1,28 @@
-.beans {
-    position: relative;
-    display: flex;  
-    flex-direction: column; 
-    justify-content: space-evenly;
-    align-items: center;
-    background-image: url("../../images/jesus-eca-6B-IevAR_AE-unsplash.jpg");
+.bg {
+  margin-top: 0;  
+  background-image: url("../../images/jesus-eca-6B-IevAR_AE-unsplash.jpg");
     background-position: center;
-    min-height: 100vh;
-    /* animation: animateBg 10s linear infinite; */
+  min-height: 100vh;
+  /* animation: animateBg 10s linear infinite; */
     background-size: cover;
-  }
-
-@keyframes animateBg {
-   from {
-     background-position: 0 0;
-   }
-   to {
-     background-position: 100% 0;
-   }
 }
 
+@keyframes animateBg {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.beans {
+  /* position: relative; */
+  display: flex;  
+  flex-direction: column; 
+  justify-content: space-between;
+  align-items: center;
+}
 
 button:active {
     transform: translateY(2px);
@@ -56,10 +59,12 @@ button:active {
     color: white;
 }
 
-.start-title {
+.new-game-btn {
   text-align: center;
-  grid-row: 1 / span 1;
-  grid-column: 2 / span 1;
+  margin: auto;
+  margin-top: 20%; 
+  /* grid-row: 1 / span 1;
+  grid-column: 2 / span 1; */
 }
 
 .start-h1 {
