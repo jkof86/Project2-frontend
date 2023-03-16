@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Landing from './components/Landing/Landing';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
+import DropdownMenu from './components/Start/TableList';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,6 +17,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path = "/Dropdown" element = {<DropdownMenu/>} />
         <Route path = "/App" element = {<App />} />
         <Route path = "/game" element = {<Game/>}/>
         <Route path="/" element={<Landing />} />

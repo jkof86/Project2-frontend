@@ -1,0 +1,67 @@
+.dropdown-menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 2px 0;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-title {
+    display: block;
+    position: relative;
+    width: 50vw;
+    background-color: #6b0202;
+    color: white;
+    text-align: center;
+
+    margin: 0 auto 2px;
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+
+    font-size: 20px;
+    z-index: 2;
+}
+
+.dropdown-table {
+    display: block;
+    position: relative;
+    width: 50vw;
+    background-color: #960000;
+    margin: 2px auto;
+    padding: 10px;
+    z-index: 1;
+}
+
+.dropdown-table:disabled {
+    display: block;
+    background-color: #9c7171;
+}
+/* This overrides default behavior -don't delete- */
+.dropdown-table:disabled:hover {
+    background-color: #9c7171;
+}
+/* This overrides parent class -don't delete- */
+.dropdown-table:disabled:active {
+    transform: translateY(0px);
+}
+
+.table-name {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.number-of-players {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.table-is-full {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}

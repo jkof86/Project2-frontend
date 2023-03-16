@@ -4,9 +4,10 @@
     flex-direction: column; 
     justify-content: space-evenly;
     align-items: center;
-    background-image: url("https://thumbs.gfycat.com/ColdWellgroomedIrukandjijellyfish-size_restricted.gif");
+    background-image: url("../../images/jesus-eca-6B-IevAR_AE-unsplash.jpg");
+    background-position: center;
     min-height: 100vh;
-    animation: animateBg 10s linear infinite;
+    /* animation: animateBg 10s linear infinite; */
     background-size: cover;
   }
 
@@ -21,13 +22,13 @@
 
 
 button:active {
-    top: 3px;
-    transform: translateY(5px);
+    transform: translateY(2px);
 }
 
 .grid-container {
     display: grid; 
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 1fr 2fr;
 }
 
 .grid-item {
@@ -54,7 +55,18 @@ button:active {
     color: white;
 }
 
+.start-title {
+  text-align: center;
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
+}
+
 .start-h1 {
-    color: rgb(170, 162, 162);
-    margin: 0;
+  color: rgb(170, 162, 162);
+  margin: 0;
+}
+
+.menu-container {
+  grid-row: 2 / span 1;
+  grid-column: 2 / span 1;
 }
