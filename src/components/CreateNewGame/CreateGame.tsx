@@ -36,7 +36,7 @@ function CreateNewGameForm() {
                     <label>Enter a name for your game</label>
                     <input id="gameName" name="gameName" value={values.gameName}/>
                     <label><Field type="checkbox" name="lobbyIsPrivate"/>{`${values.lobbyIsPrivate}`}</label>
-                    <button type="submit">Submit</button>
+                    <button className="create-game" type="submit">Submit</button>
                 </Form>    
             ) }
 
