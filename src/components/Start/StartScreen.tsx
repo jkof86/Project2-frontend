@@ -1,6 +1,5 @@
-import "./StartScreen.css"; 
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import "./StartScreen.css";
+import TableList from "./TableList";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 
@@ -8,26 +7,25 @@ import { RootState } from "../../redux/store";
 
 function StartScreen() {
     
-    /* Will need an API fetch to retrieve all available lobbies and display them */
+    /* Will need an API fetch to retrieve all available lobbies and display them 
 
     
+    const loadExistingLobbies() {
+        
+    }; */
 
-    return (<div className="bg">
-    <h1 className="start-title">Shuffle the deck...</h1>
-    <div className="beans">
-    <div className="grid-container">
-        <div className="grid-item">TABLE 1</div>
-        <Link to="/game"><button className="start-button">JOIN</button></Link>
-        <div className="grid-item">TABLE 2</div>
-        <Link to="/game"><button className="start-button">JOIN</button></Link>
-        <div className="grid-item">TABLE 3</div>
-        <Link to="/game"><button className="start-button">JOIN</button></Link>
-    </div>
-    <div>
-        <Link to="/creategame"><button>CREATE NEW GAME</button></Link>
-    </div>
-    </div>
-    </div>)
+    return (
+        <div className="beans">
+            <div className="grid-container">
+                <div className="start-title grid-item">
+                    <h1 className="start-h1">Choose a Table</h1>
+                </div>
+                <div className="menu-container grid-item">
+                    <TableList/>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default StartScreen;
