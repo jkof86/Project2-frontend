@@ -19,7 +19,7 @@
 .beans {
   /* position: relative; */
   display: flex;  
-  flex-direction: row; 
+  flex-direction: column; 
   justify-content: space-evenly;
   align-items: center;
 }
@@ -58,15 +58,15 @@ button:active {
     color: white;
 }
 
-.start-title {
+.new-game-btn {
   text-align: center;
-  grid-row: 1 / span 1;
-  grid-column: 2 / span 1;
+  /* grid-row: 1 / span 1;
+  grid-column: 2 / span 1; */
 }
 
 .start-h1 {
   color: rgb(170, 162, 162);
-    text-align: center;
+  text-align: center;
   /* margin: 0; */
 }
 
