@@ -10,7 +10,8 @@ interface NewGameValues {
 function CreateNewGameForm() {
    
     return (
-        <Formik 
+        <div className="game-form">
+            <Formik 
             initialValues={{gameName: "", lobbyIsPrivate: false,}}
             onSubmit={async (values) => {
                 console.log(values);
@@ -26,6 +27,7 @@ function CreateNewGameForm() {
             ) }
 
         </Formik>
+        </div>
         
     )
 }; 
