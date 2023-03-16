@@ -1,4 +1,4 @@
-import { on } from "events";
+import "./CreateGame.css";
 import { Formik, Field, Form, useFormik } from "formik"; 
 
 
@@ -20,7 +20,7 @@ function CreateNewGameForm() {
                 <Form>
                     <label>Enter a name for your game</label>
                     <Field id="gameName" name="gameName" value={values.gameName}/>
-                    <label><Field type="checkbox" name="lobbyIsPrivate"/>{`${values.lobbyIsPrivate}`}</label>
+                    <label><Field id="check" type="checkbox" name="lobbyIsPrivate"/>Set table to private</label>
                     <button className="create-game" type="submit">Submit</button>
                 </Form>    
             ) }
