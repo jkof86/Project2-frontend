@@ -51,6 +51,7 @@ button:active {
   font-size: 7vw;
   font-weight: 100;
   background: -webkit-linear-gradient(#f8e2c3,#EC9A29);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'Ewert';

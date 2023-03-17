@@ -13,8 +13,9 @@
     position: relative;
     background-image: linear-gradient(
         to bottom,
-        #6b0202,
-        #520101
+        #6b0202 0%,
+        #6b0202 60%,
+        #520101 100%
     );
     color: white;
     text-align: center;
@@ -119,4 +120,16 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+
+  @media screen and (max-width: 600px) {
+    .dropdown-table{
+      width: 90vw;
+      text-align: left;
+      padding: 10px 40px;
+    }
+
+    .table-name, .number-of-players, .table-is-full {
+        font-size: 15px;
+    }
   }
