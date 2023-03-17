@@ -18,7 +18,6 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path = "/Dropdown" element = {<DropdownMenu/>} />
         <Route path="/App" element = {<App />} />
         <Route path="/game" element = {<Game/>}/>
         <Route path="/" element={<Landing />} />

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 
 
-
 function StartScreen() {
 
     /* Will need an API fetch to retrieve all available lobbies and display them 

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { number } from "yup";
 import "./TableList.css";
 import Table from "./Table";
-import { replace } from "lodash";
 
 
 const fakeTables:TableProps[] = [{
@@ -58,7 +56,7 @@ interface TableProps {
     numberOfPlayers: number
 }
 
-function DropdownMenu() {
+function TableList() {
     const [tableList, setTableList] = useState<TableProps[]>(
         [{
             name: "Failed to load tables",
@@ -66,7 +64,6 @@ function DropdownMenu() {
             numberOfPlayers: 5
         }]
     );
-
     const loadAllTables = () => {
         //Code here to load the tables from the server
         setTableList(fakeTables);
@@ -92,7 +89,7 @@ function DropdownMenu() {
                 {tableList
                     .slice(0)
                     .map((table:TableProps) => (
-                        <Table name={table.name} id={table.id} numberOfPlayers={table.numberOfPlayers} handleJoin={handleJoin}/>
+                        <Table name={table.name} id={table.id} numberOfPlayers={table.numberOfPlayers} handleJoin={handleJoin} />
                     ))
                 }
             </div>
@@ -100,4 +97,4 @@ function DropdownMenu() {
     )
 }
 
-export default DropdownMenu;
+export default TableList;
