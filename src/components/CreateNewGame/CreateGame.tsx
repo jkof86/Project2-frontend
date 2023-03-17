@@ -50,6 +50,7 @@ function CreateNewGameForm() {
                 <Form>
                     <label className="name-label">Enter a name for your game</label>
                     <Field id="gameName" name="gameName" value={values.gameName}/>
+                    
                     <label><Field id="check" type="checkbox" name="lobbyIsPrivate"/>Set table to private</label>
                     <div className="button-div"><button className="create-game" type="submit">Submit</button></div>
                 </Form>    

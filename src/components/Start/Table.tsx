@@ -16,7 +16,7 @@ function Table({name, id, numberOfPlayers, handleJoin}:TableProps) {
         <button onMouseOver={() => playClickSound()} onClick={() => handleJoin(id)} key={id} className="dropdown-table" disabled={numberOfPlayers > 4}>
                 <h6 className="table-name">{name}</h6>
                 <p className="number-of-players">
-                    {[...Array(numberOfPlayers)].map(e => <FaUser/>)}
+                    {[...Array(numberOfPlayers)].map((e, i) => <FaUser key={i} />)}
                 </p>
                 {numberOfPlayers > 4 && <p className="table-is-full">Full</p>}
         </button>
