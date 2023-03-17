@@ -1,15 +1,32 @@
 .game-form {
-    display: flex;
-    flex-direction: column;
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(254, 199, 199);
+    padding: 5%;
+    border-radius: 10px;
+    border: solid black;
 }
 
 #check {
     margin-right: -130px;
-    margin-left: -100px;
+    margin-left: -80px;
     padding: 0;
 }
 
 #gameName {
     display: inline;
+}
+
+.create-game {
+    margin-left: 30%; 
+    margin-top: 5%;
+   
+}
+
+.button-div {
+    display: flex; 
+    align-items: center;
 }
 
