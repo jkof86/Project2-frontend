@@ -1,6 +1,9 @@
 import "./CreateGame.css";
 import { Formik, Field, Form, useFormik } from "formik"; 
-
+import axios, {AxiosRequestConfig} from "axios";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL, GAME_PORT } from "../../static/defaults";
+import { useState } from "react";
 
 interface NewGameValues {
     gameName: string; 
@@ -8,14 +11,40 @@ interface NewGameValues {
 }
 
 function CreateNewGameForm() {
+    const navigate = useNavigate();
    
+    const handleNewGame = (game:{gameName: string, lobbyIsPrivate: boolean}) => {
+        //e.preventDefault();
+        //e: React.MouseEvent<HTMLButtonElement>
+        
+        const requestConfig: AxiosRequestConfig = {
+            baseURL: `http://${BASE_URL}:${GAME_PORT}`,
+            headers: {
+                'gameName': game.gameName,
+                'lobbyIsPrivate': "" + game.lobbyIsPrivate,
+                'Content-Type': 'application/json'
+            }
+        }
+
+        console.log(requestConfig);
+        
+
+        const PATH = `/createBlackjackGame`;
+
+        axios.post<string>(PATH, {}, requestConfig)
+        .then((res) => {
+            console.log(res.data);
+            navigate('/' + 'blackjack' + '/' + res.data);
+        })
+        .catch( (err) => console.log(err));
+    }
+
     return (
         <div className="game-form">
             <Formik 
             initialValues={{gameName: "", lobbyIsPrivate: false,}}
-            onSubmit={async (values) => {
-                console.log(values);
-                //insert axios post request here later
+            onSubmit={(values) => {
+                handleNewGame(values);
             }}>
             {({ values }) => (
                 <Form>

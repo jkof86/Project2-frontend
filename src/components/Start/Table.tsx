@@ -4,9 +4,9 @@ import { FaUser } from "@react-icons/all-files/fa/FaUser";
 
 interface TableProps {
     name: string,
-    id: number,
+    id: string,
     numberOfPlayers: number,
-    handleJoin:(id:number) => void
+    handleJoin:(id:string) => void
 }
 
 function Table({name, id, numberOfPlayers, handleJoin}:TableProps) {
