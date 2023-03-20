@@ -7,16 +7,6 @@ import { RootState } from "../../redux/store";
 import { autoLogin } from "../../features/authSlice";
 
 const Landing: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const csrfToken = useAppSelector((state: RootState) => state.csrf.token);
-
-  useEffect(() => {
-    if (!csrfToken) {
-      dispatch(fetchCsrfToken());
-    }
-    dispatch(autoLogin());
-  }, [dispatch, csrfToken]);
-  console.log(csrfToken);
   return (
     <div className="background">
       <div className="landing-container">

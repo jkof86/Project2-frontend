@@ -1,6 +1,6 @@
-import { store } from "./redux/store";
+import { RootState, store } from "./redux/store";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -11,25 +11,21 @@ import Landing from "./components/Landing/Landing";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import { Provider } from "react-redux";
+import { autoLogin } from "./features/authSlice";
+import { fetchCsrfToken } from "./features/csrfSlice";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { Root } from "./Root";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/App" element={<App />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/" element={<Landing />} />
-          <Route path="/Registration" element={<Registration />} />
-          <Route path="/Login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <Root />
+  </Provider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

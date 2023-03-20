@@ -1,13 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getJwt } from "../util/getJwt";
 import { RootState } from "../redux/store";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import apiClient from "../util/apiClient";
+import { act } from "react-dom/test-utils";
 
-interface User {
-  email: string;
-  username: string;
-}
 interface AuthState {
   username: string | null;
   email: string | null;
@@ -40,33 +37,49 @@ interface LoginPayload {
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (payload: RegisterPayload) => {
-    const response = await apiClient.post("/auth/register", payload);
-    return response.data;
+    try {
+      const response = await apiClient.post("/auth/register", payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err.response?.data;
+    }
   }
 );
 
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (payload: LoginPayload) => {
-    const response = await apiClient.post("/auth/login", payload);
-    console.log(response);
-
-    return response.data;
+    try {
+      const response = await apiClient.post("/auth/login", payload);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
+      return err.response?.data;
+    }
   }
 );
 
 export const autoLogin = createAsyncThunk("auth/autoLogin", async () => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   if (!jwt) {
     throw new Error("No JWT token found");
   }
 
-  const response = await apiClient.get("/auth/user", {
-    headers: { Authorization: `Bearer ${jwt}` },
-  });
-  console.log(response);
-
-  return { ...response.data, jwt };
+  try {
+    const response = await apiClient.get("/auth/user", {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    console.log(response);
+    return { ...response.data, jwt };
+  } catch (error) {
+    console.log(error);
+    const err = error as AxiosError;
+    return err.response?.data;
+  }
 });
 
 const authSlice = createSlice({
@@ -87,13 +100,19 @@ const authSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(registerUser.fulfilled, (state) => {
-        state.status = "succeeded";
-        state.error = null;
+      .addCase(registerUser.fulfilled, (state, action) => {
+        console.log(action);
+
+        if (action.payload.httpStatus) {
+          state.status = "failed";
+          state.error = action.payload;
+        } else {
+          state.status = "succeeded";
+          state.error = null;
+        }
       })
       .addCase(registerUser.rejected, (state, action) => {
         console.log(action);
-
         state.status = "failed";
         state.error = action.error.message || null;
       })
@@ -101,14 +120,21 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.username = action.payload.username;
-        state.email = action.payload.email;
-        state.jwt = action.payload.accessToken;
-        state.error = null;
-        localStorage.setItem("jwt", action.payload.accessToken);
+        console.log(action);
+        if (action.payload.httpStatus) {
+          state.status = "failed";
+          state.error = action.payload;
+        } else {
+          state.status = "succeeded";
+          state.username = action.payload.username;
+          state.email = action.payload.email;
+          state.jwt = action.payload.accessToken;
+          state.error = null;
+          localStorage.setItem("jwt", action.payload.accessToken);
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
+        console.log(action);
         state.status = "failed";
         state.error = action.error.message || null;
       })
@@ -116,11 +142,17 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(autoLogin.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.username = action.payload.username;
-        state.email = action.payload.email;
-        state.jwt = action.payload.jwt;
-        state.error = null;
+        console.log(action);
+        if (action.payload.httpStatus) {
+          state.status = "failed";
+          state.error = action.payload;
+        } else {
+          state.status = "succeeded";
+          state.username = action.payload.username;
+          state.email = action.payload.email;
+          state.jwt = action.payload.jwt;
+          state.error = null;
+        }
       })
       .addCase(autoLogin.rejected, (state, action) => {
         state.status = "failed";

@@ -4,8 +4,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { StringLiteral } from "typescript";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { registerUser } from "../../features/authSlice";
+import { RootState } from "../../redux/store";
 
 interface RegistrationValues {
   email: string;
@@ -44,6 +45,9 @@ const validationSchema = Yup.object().shape({
 const Registration: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  const auth = useAppSelector((state: RootState) => state.auth);
+  console.log(auth);
+
   const initialValues: RegistrationValues = {
     email: "",
     username: "",
@@ -59,7 +63,14 @@ const Registration: React.FC = () => {
       console.log(
         `Email: ${values.email}, Username: ${values.username}, Password: ${values.password}`
       );
-      await dispatch(registerUser(values)).unwrap();
+      const res = await dispatch(registerUser(values)).unwrap();
+
+      if (res.httpStatus) {
+        // set errors here
+        console.log(res);
+      } else {
+        // successfully registered so navigate user to login
+      }
       setSubmitting(false);
     } catch (error) {
       console.error(error);

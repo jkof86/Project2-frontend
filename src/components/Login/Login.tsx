@@ -3,8 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loginUser } from "../../features/authSlice";
+import { RootState } from "../../redux/store";
 
 interface LoginValues {
   email: string;
@@ -23,6 +24,9 @@ const validationSchema = Yup.object().shape({
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  const auth = useAppSelector((state: RootState) => state.auth);
+  console.log(auth);
+
   const initialValues: LoginValues = {
     email: "",
     password: "",
@@ -36,10 +40,16 @@ const Login: React.FC = () => {
     try {
       console.log(`Email: ${values.email}, Password: ${values.password}`);
       const res = await dispatch(loginUser(values)).unwrap();
-      console.log(res);
+      if (res.accessToken) {
+        // successful login so navigate user here
+      } else {
+        // set errors here
+        console.log(res);
+      }
       setSubmitting(false);
     } catch (error) {
       console.error(error);
+      // set generic error here "Something went wrong with logging in"
       setSubmitting(false);
     }
   };
