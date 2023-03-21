@@ -30,7 +30,7 @@ export const Root = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/App" element={<App />} />
-        <Route path="/game" element={<Game />} />
+        <Route path='/blackjack/:tableId' element={<Game />} />
         <Route path="/" element={<Landing />} />
         <Route path="/Registration" element={<Registration />} />
         <Route path="/Login" element={<Login />} />

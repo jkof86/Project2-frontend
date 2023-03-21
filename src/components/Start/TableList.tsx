@@ -2,30 +2,46 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TableList.css";
 import Table from "./Table";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { GameRepresentation } from "../../model/GameRepresentation";
-import { BASE_URL, GAME_PORT } from "../../static/defaults";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { loadTablesSuccess } from "../../features/TableSlice";
+import { RootState } from "../../redux/store";
+import lobbyClient from "../../util/lobbyClient";
+import { getJwt } from "../../util/getJwt";
 
 
 function TableList() {
     const [games, setGames] = useState<GameRepresentation[] | null>(null);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const loadAllTables = () => {
-        //Connor's useEffect code vv
+    const tables = useAppSelector((state: RootState) => state.tables);
+
+    const loadAllTables = async () => {
+        const jwt = getJwt();
+        if (!jwt) {
+            throw new Error("No JWT token found");
+        }
+        //================== Connor's useEffect code vv ====================
         const requestConfig: AxiosRequestConfig = {
-            baseURL: `http://${BASE_URL}:${GAME_PORT}`,
             headers: {
+                Authorization: `Bearer ${jwt}`,
                 'Content-Type': 'application/json'
             }
         }
 
         const PATH = '/allGames';
 
-        axios.get<GameRepresentation[]>(PATH, requestConfig)
-        .then( (res) => {setGames(res.data); console.log(res.data);
+        lobbyClient.get<GameRepresentation[]>(PATH, requestConfig)
+        .then( (response) => {
+            const tableList: GameRepresentation[] = response.data;
+            setGames(tableList);
+            console.log(response.data);
+            dispatch(loadTablesSuccess(tableList));
         })
         .catch( (err) => console.log(err));
+        
     }
 
     const handleJoin = (id:string) => {

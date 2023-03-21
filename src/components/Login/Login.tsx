@@ -42,6 +42,7 @@ const Login: React.FC = () => {
       const res = await dispatch(loginUser(values)).unwrap();
       if (res.accessToken) {
         // successful login so navigate user here
+        navigate("/app");
       } else {
         // set errors here
         console.log(res);

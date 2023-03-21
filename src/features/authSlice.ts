@@ -1,9 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getJwt } from "../util/getJwt";
-import { RootState } from "../redux/store";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import apiClient from "../util/apiClient";
-import { act } from "react-dom/test-utils";
 
 interface AuthState {
   username: string | null;

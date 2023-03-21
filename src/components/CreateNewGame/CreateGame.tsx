@@ -4,6 +4,9 @@ import axios, {AxiosRequestConfig} from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, GAME_PORT } from "../../static/defaults";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getJwt } from "../../util/getJwt";
+import lobbyClient from "../../util/lobbyClient";
 
 interface NewGameValues {
     gameName: string; 
@@ -11,15 +14,21 @@ interface NewGameValues {
 }
 
 function CreateNewGameForm() {
+
     const navigate = useNavigate();
-   
-    const handleNewGame = (game:{gameName: string, lobbyIsPrivate: boolean}) => {
+    const dispatch = useAppDispatch();
+
+    const handleNewGame = async (game:{gameName: string, lobbyIsPrivate: boolean}) => {
         //e.preventDefault();
         //e: React.MouseEvent<HTMLButtonElement>
+        const jwt = getJwt();
+        if (!jwt) {
+            throw new Error("No JWT token found");
+        }
         
         const requestConfig: AxiosRequestConfig = {
-            baseURL: `http://${BASE_URL}:${GAME_PORT}`,
             headers: {
+                Authorization: `Bearer ${jwt}`,
                 'gameName': game.gameName,
                 'lobbyIsPrivate': "" + game.lobbyIsPrivate,
                 'Content-Type': 'application/json'
@@ -31,7 +40,7 @@ function CreateNewGameForm() {
 
         const PATH = `/createBlackjackGame`;
 
-        axios.post<string>(PATH, {}, requestConfig)
+        lobbyClient.post<string>(PATH, {}, requestConfig)
         .then((res) => {
             console.log(res.data);
             navigate('/' + 'blackjack' + '/' + res.data);
