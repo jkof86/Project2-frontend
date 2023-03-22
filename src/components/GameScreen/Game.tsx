@@ -157,7 +157,7 @@ const Game = () => {
         <div className="cardSection">
           {playersCards.map((card, index) => (
             <div key={index} className="cardWrapper">
-              {/* <card-t rank={card.rank} suit={card.suit} /> */}
+              {/* <card-t rank={card.rank} suit={card.suit} suitcolor = "#DCE0D9, #FF3131, #FF3131, #DCE0D9" bordercolor="#6D7275" borderradius="12" borderline="2" courtcolors = "#FF3131, #FF3131, #DCE0D9, #DCE0D9, #DCE0D9, 7"/> */}
             </div>
           ))}
         </div>
