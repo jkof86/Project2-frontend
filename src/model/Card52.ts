@@ -6,8 +6,4 @@ export class Card52 {
         this.suit = suit;
         this.rank = rank;
     }
-
-    getCardImage(): string {
-        return "/cards/" + this.rank + this.suit + ".svg";
-    }
 }

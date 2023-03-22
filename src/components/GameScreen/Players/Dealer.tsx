@@ -1,4 +1,5 @@
 import { Card52 } from "../../../model/Card52";
+import Card from "../Card/Card";
 
 interface DealerProps {
     dealersCards: Card52[] | undefined,
@@ -9,15 +10,10 @@ function Dealer({dealersCards, cardsDealt}:DealerProps) {
     return (
         <div className="dealerCards">
         <div className="cardSection">
-          {/*dealerCards.map((card, index) => (
-            <div key={index} className="cardWrapper">
-              {index === 0 && !isDealersTurn ? (
-                <card-t rank="0" backtext="BACK" />
-              ) : (
-                <card-t rank={card.rank} suit={card.suit} />
-              )}
-            </div>
-              ))*/}
+          <Card key={"back"} card={new Card52("BACK","2")}/>
+          {dealersCards?.map((card:Card52, index:number) => (
+                    <Card key={index} card={card}/>
+                ))}
         </div>
         {cardsDealt && (
           <div className="countContainer">
