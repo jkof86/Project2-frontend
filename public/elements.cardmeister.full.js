@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-expressions */
-
 (function(){'use strict';let create = CARDT => {// exec after SVGpaths below are loaded
     let drawCard = cardt => {
         let doc = 'ATTRs:\n';// show attrs on click

@@ -1,11 +1,11 @@
 import { Client } from "@stomp/stompjs";
 import { AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
-import { BlackjackClientGameState } from "../../model/BlackjackClientGameState";
-import { QueueState } from "../../model/QueueState";
-import { BASE_URL, GAME_PORT } from "../../static/defaults";
-import { getJwt } from "../../util/getJwt";
-import lobbyClient from "../../util/lobbyClient";
+import { BlackjackClientGameState } from "../../../model/BlackjackClientGameState";
+import { QueueState } from "../../../model/QueueState";
+import { BASE_URL, GAME_PORT } from "../../../static/defaults";
+import { getJwt } from "../../../util/getJwt";
+import lobbyClient from "../../../util/lobbyClient";
 
 // DOCUMENTATION NEEDED
 export const stompClient: Client = new Client({
@@ -82,10 +82,12 @@ export function joinGame(tableId:string|undefined, setPlayerId:(id: string)=>voi
 }
 
 // DOCUMENTATION NEEDED
-export const handleStartGame = (tableId:string|undefined) => {
+export const handleStartGame = (tableId:string|undefined, playerId:string|undefined) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
+            Authorization: `Bearer ${jwt}`,
+            'playerId': playerId,
             'gameId': tableId,
             'Content-Type': 'application/json'
         }
@@ -105,6 +107,7 @@ export const onHitAction = (tableId:string|undefined, playerId:string) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
+            Authorization: `Bearer ${jwt}`,
             'gameId': tableId,
             'playerId': playerId,
             'actionVerb':"HIT",
@@ -125,6 +128,7 @@ export const onStandAction = (tableId:string|undefined, playerId:string) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
+            Authorization: `Bearer ${jwt}`,
             'gameId': tableId,
             'playerId': playerId,
             'actionVerb':"STAND",
