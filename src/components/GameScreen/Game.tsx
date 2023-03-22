@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../../cardmeister.github.io-master 2/elements.cardmeister.full';
 import { shuffle } from 'lodash';
 import './Game.css'
-import { useParams } from 'react-router-dom';
-
-import { BlackjackClientGameState } from '../../model/BlackjackClientGameState';
-import { BlackjackPlayerInfo } from '../../model/BlackjackPlayerInfo';
-import { BASE_URL, GAME_PORT } from '../../static/defaults';
-import axios, { AxiosRequestConfig } from 'axios';
-import { QueueState } from '../../model/QueueState';
-import { Client } from '@stomp/stompjs';
 import { Card52 } from '../../model/Card52';
+import { connect } from 'react-redux';
+import { connectToWebSocket, handleStartGame, joinGame } from './GameConnection';
+import { useParams } from 'react-router-dom';
+import { BlackjackClientGameState } from '../../model/BlackjackClientGameState';
 
-let stompClient: Client = new Client({
-  brokerURL: `ws://${BASE_URL}:${GAME_PORT}/ws`,
-  heartbeatIncoming: 4000,
-  heartbeatOutgoing: 4000,
-  // debug: (msg) => {
-  //     console.log(msg);
-  // }
-});
+
 
 const Game = () => {
-  //CONNORS STUFF vv
-  const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [playerId, setPlayerId] = useState<string>("");
-  const [gameState, setGameState] = useState<BlackjackClientGameState>();
+
   const [playerList, setPlayerList] = useState<any>();
   const [dealersCards, setDealersCards] = useState<Card52[]>();
-  const [queueState, setQueueState] = useState<QueueState>();
+
+  //const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [playerId, setPlayerId] = useState<string>("");
+  const [gameState, setGameState] = useState<BlackjackClientGameState>();
+// const [queueState, setQueueState] = useState<QueueState>();
 
   let { tableId } = useParams();
-  //CONNORS STUFF ^^
-
   
   const deck = [
     {rank: "Ace", suit: "Spades"},{rank: "2", suit: "Spades"},{rank: "3", suit: "Spades"},
@@ -72,22 +60,23 @@ const Game = () => {
   const [cardsDealt, setCardsDealt] = useState(false);
 
   const dealCards = () => {
-    setIsDealersTurn(false);
-    setIsHandComplete(false);
+    //setIsDealersTurn(false);
+    //setIsHandComplete(false);
   
-    const newPlayersCards = randomizedDeck.slice(0, 2).map((card, index) => ({
-      ...card,
-      facingUp: true // All player cards are face up
-    }));
-    const newDealerCards = randomizedDeck.slice(2, 4).map((card, index) => ({
-      ...card,
-      facingUp: index === 0 ? false : true // Only the first dealer card is face down
-    }));
+    // const newPlayersCards = randomizedDeck.slice(0, 2).map((card, index) => ({
+    //   ...card,
+    //   facingUp: true // All player cards are face up
+    // }));
+    // const newDealerCards = randomizedDeck.slice(2, 4).map((card, index) => ({
+    //   ...card,
+    //   facingUp: index === 0 ? false : true // Only the first dealer card is face down
+    // }));
   
     //setPlayersCards(newPlayersCards);
     //setDealerCards(newDealerCards);
-    setRandomizedDeck(randomizedDeck.slice(4));
-    setCardsDealt(true);
+    // setRandomizedDeck(randomizedDeck.slice(4));
+    // setCardsDealt(true);
+    handleStartGame(tableId);
   };
   
   const calculateHand = (cards:Card52[]) => {
@@ -119,11 +108,9 @@ const Game = () => {
     return count;
   }
 
-  // CONNORS FUNCTION CODE STARTS HERE --------------------------
-
   useEffect(() => {
       //First, we join the game. This gives us a player token.
-      joinGame();
+      joinGame(tableId, setPlayerId);
       //Next, we subscribe to the two endpoints, to get game state and queue position updates.
       //We do these at the same time because a player may automatically be moved from the queue to the game.
       //connect() is called from inside of joinGame because it must be done asynchronously.
@@ -131,7 +118,7 @@ const Game = () => {
 
   useEffect(() => {
       if(playerId === '') return;
-      connect();
+      connectToWebSocket(playerId, setGameState);
   }, [playerId]);
 
   useEffect(() => {
@@ -143,116 +130,6 @@ const Game = () => {
           </li>));
   }, [gameState])
 
-  const connect = () => {
-      //let socket = new SockJS(`http://${BASE_URL}:${GAME_PORT}/ws`);
-      //console.log(socket);
-      
-      //stompClient = over(socket);
-
-      stompClient.onConnect = function (frame) {
-          console.log(frame);
-          setIsConnected(true);
-          stompClient.subscribe('/user/' + playerId + '/queue', (payload) => { 
-              let obj = JSON.parse(payload.body);
-              console.log(obj);
-          });
-          stompClient.subscribe('/user/' + playerId + '/game', (payload) => { 
-              setGameState(JSON.parse(payload.body) as BlackjackClientGameState);
-          });
-      }
-      
-      stompClient.activate();
-      // TODO: remove console.log below
-      // setIsConnected(true);
-      // stompClient.connect({}, () => {
-      //     console.log("We're connected!");
-      //     onConnected();
-      // }, (e: any) => { console.log("Error: " + e) });
-  };
-
-  const disconnect = () => {
-      if (stompClient != null) {
-          stompClient.deactivate();
-          setIsConnected(false);
-      }
-  }
-
-  const onHitAction = () => {
-      const requestConfig: AxiosRequestConfig = {
-          baseURL: `http://${BASE_URL}:${GAME_PORT}`,
-          headers: {
-              'gameId': tableId,
-              'playerId': playerId,
-              'actionVerb':"HIT",
-              'Content-Type': 'application/json'
-          }
-      }
-
-      const PATH = '/blackjackAction';
-
-      axios.put(PATH, {
-      tableId
-      }, requestConfig)
-      .catch( (err) => console.log(err));
-  }
-
-  const onStandAction = () => {
-      const requestConfig: AxiosRequestConfig = {
-          baseURL: `http://${BASE_URL}:${GAME_PORT}`,
-          headers: {
-              'gameId': tableId,
-              'playerId': playerId,
-              'actionVerb':"STAND",
-              'Content-Type': 'application/json'
-          }
-      }
-
-      const PATH = '/blackjackAction';
-
-      axios.put(PATH, {
-      tableId
-      }, requestConfig)
-      .catch( (err) => console.log(err));
-  }
-
-  function joinGame() {
-      const requestConfig: AxiosRequestConfig = {
-          baseURL: `http://${BASE_URL}:${GAME_PORT}`,
-          headers: {
-              'gameId': tableId,
-              'Content-Type': 'application/json'
-          }
-      }
-
-      const PATH = '/joinBlackjackGame';
-
-      axios.put<string>(PATH, {
-      tableId
-      }, requestConfig)
-      .then( (res) => {
-          setPlayerId(res.data);
-      })
-      .catch( (err) => console.log(err));
-  }
-
-  const handleStartGame = () => {
-      const requestConfig: AxiosRequestConfig = {
-          baseURL: `http://${BASE_URL}:${GAME_PORT}`,
-          headers: {
-              'gameId': tableId,
-              'Content-Type': 'application/json'
-          }
-      }
-
-      const PATH = '/startBlackjackGame';
-
-      axios.put(PATH, {
-      tableId
-      }, requestConfig)
-      .then( (res) => console.log(res.status))
-      .catch( (err) => console.log(err));
-  }
-  
   return (
     <div className="gameBoard">
       <div className="dealerCards">
