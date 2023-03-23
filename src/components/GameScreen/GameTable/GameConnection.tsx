@@ -1,6 +1,5 @@
 import { Client } from "@stomp/stompjs";
 import { AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
 import { BlackjackClientGameState } from "../../../model/BlackjackClientGameState";
 import { QueueState } from "../../../model/QueueState";
 import { BASE_URL, GAME_PORT } from "../../../static/defaults";
@@ -53,7 +52,7 @@ export const connectToWebSocket = (playerId:string, setGameState:(state: Blackja
 };
 
 // DOCUMENTATION NEEDED
-export const disconnect = () => {
+export const disconnectFromWebSocket = () => {
     if (stompClient != null) {
         stompClient.deactivate();
         //setIsConnected(false);
@@ -61,11 +60,12 @@ export const disconnect = () => {
 }
 
 // DOCUMENTATION NEEDED
-export function joinGame(tableId:string|undefined, setPlayerId:(id: string)=>void) {
+export function joinGame(tableId:string|undefined, playerName:string|null, setPlayerId:(id: string)=>void) {
     const requestConfig: AxiosRequestConfig = {
         headers: {
             Authorization: `Bearer ${jwt}`,
             'gameId': tableId,
+            'username': playerName,
             'Content-Type': 'application/json'
         }
     }
@@ -141,5 +141,22 @@ export const onStandAction = (tableId:string|undefined, playerId:string) => {
     lobbyClient.put(PATH, {
     tableId
     }, requestConfig)
+    .catch( (err) => console.log(err));
+}
+
+export const leaveGame = (tableId:string|undefined, playerId:string) => {
+    const requestConfig: AxiosRequestConfig = {
+        baseURL: `http://${BASE_URL}:${GAME_PORT}`,
+        headers: {
+            Authorization: `Bearer ${jwt}`,
+            'gameId': tableId,
+            'playerId': playerId,
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const PATH = '/leaveBlackjackGame';
+
+    lobbyClient.delete(PATH, requestConfig)
     .catch( (err) => console.log(err));
 }

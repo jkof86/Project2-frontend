@@ -3,23 +3,25 @@ import Card from "../Card/Card";
 
 interface DealerProps {
     dealersCards: Card52[] | undefined,
-    cardsDealt: boolean
+    dealerHandValue: number | undefined
 }
 
-function Dealer({dealersCards, cardsDealt}:DealerProps) {
+function Dealer({dealersCards, dealerHandValue }:DealerProps) {
     return (
         <div className="dealerCards">
         <div className="cardSection">
-          <Card key={"back"} card={new Card52("BACK","2")}/>
+          <div className="backFaceCard">
+            {dealersCards != undefined && <Card key={"back"} card={new Card52("BACK","2")}/>}
+          </div>
           {dealersCards?.map((card:Card52, index:number) => (
                     <Card key={index} card={card}/>
                 ))}
         </div>
-        {cardsDealt && (
+        {dealersCards != undefined && (
           <div className="countContainer">
             <div className="countBox">
               <div className="countLabel">Dealer</div>
-              {/* <div className="countValue">{calculateHand(dealerCards)}</div> */}
+              <div className="countValue">{dealerHandValue}</div>
             </div>
           </div>
         )}
