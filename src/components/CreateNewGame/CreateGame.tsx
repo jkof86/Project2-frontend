@@ -8,19 +8,12 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getJwt } from "../../util/getJwt";
 import lobbyClient from "../../util/lobbyClient";
 
-interface NewGameValues {
-    gameName: string; 
-    lobbyIsPrivate: boolean; 
-}
-
 function CreateNewGameForm() {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleNewGame = async (game:{gameName: string, lobbyIsPrivate: boolean}) => {
-        //e.preventDefault();
-        //e: React.MouseEvent<HTMLButtonElement>
         const jwt = getJwt();
         if (!jwt) {
             throw new Error("No JWT token found");
@@ -34,18 +27,14 @@ function CreateNewGameForm() {
                 'Content-Type': 'application/json'
             }
         }
-
-        console.log(requestConfig);
         
-
         const PATH = `/createBlackjackGame`;
 
         lobbyClient.post<string>(PATH, {}, requestConfig)
         .then((res) => {
-            console.log(res.data);
             navigate('/' + 'blackjack' + '/' + res.data);
         })
-        .catch( (err) => console.log(err));
+        .catch( (err) => console.log("Error:" + err));
     }
 
     return (

@@ -11,9 +11,9 @@ export const stompClient: Client = new Client({
     brokerURL: `ws://${BASE_URL}:${GAME_PORT}/ws`,
     heartbeatIncoming: 4000,
     heartbeatOutgoing: 4000,
-    debug: (msg) => {
-        console.log(msg);
-    }
+    // debug: (msg) => {
+    //     console.log(msg);
+    // }
 });
 
 // Helper function to grab jwt from the local storage
@@ -21,20 +21,17 @@ const jwt = getJwt();
 
 // DOCUMENTATION NEEDED
 export const connectToWebSocket = (playerId:string, setGameState:(state: BlackjackClientGameState)=>void) => {
-    //let socket = new SockJS(`http://${BASE_URL}:${GAME_PORT}/ws`);
-    //console.log(socket);
-    
-    //stompClient = over(socket);
 
     stompClient.onConnect = function (frame) {
-        console.log(frame);
-        //setIsConnected(true);
+        //console.log(frame);
         stompClient.subscribe('/user/' + playerId + '/queue', (payload) => { 
             let obj = JSON.parse(payload.body);
             console.log(obj);
         });
         stompClient.subscribe('/user/' + playerId + '/game', (payload) => { 
+            console.log(payload.body);
             setGameState(JSON.parse(payload.body) as BlackjackClientGameState);
+            console.log("Bigass blob:", JSON.parse(payload.body) as BlackjackClientGameState);
         });
     }
     
@@ -43,19 +40,12 @@ export const connectToWebSocket = (playerId:string, setGameState:(state: Blackja
     }
 
     stompClient.activate();
-    // TODO: remove console.log below
-    // setIsConnected(true);
-    // stompClient.connect({}, () => {
-    //     console.log("We're connected!");
-    //     onConnected();
-    // }, (e: any) => { console.log("Error: " + e) });
 };
 
 // DOCUMENTATION NEEDED
 export const disconnectFromWebSocket = () => {
     if (stompClient != null) {
         stompClient.deactivate();
-        //setIsConnected(false);
     }
 }
 
@@ -77,6 +67,29 @@ export function joinGame(tableId:string|undefined, playerName:string|null, setPl
     }, requestConfig)
     .then( (res) => {
         setPlayerId(res.data);
+    })
+    .catch( (err) => console.log(err));
+}
+
+// DOCUMENTATION NEEDED
+export const amIHost = (tableId:string|undefined, playerId:string|undefined, setIsHost:(isHost:boolean)=>void) => {
+    const requestConfig: AxiosRequestConfig = {
+        baseURL: `http://${BASE_URL}:${GAME_PORT}`,
+        headers: {
+            Authorization: `Bearer ${jwt}`,
+            'playerId': playerId,
+            'gameId': tableId,
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const PATH = '/amIHost';
+
+    lobbyClient.get(PATH, requestConfig)
+    .then( (response) => {
+        console.log(response.data);
+        const isHost: boolean = response.data;
+        setIsHost(isHost);
     })
     .catch( (err) => console.log(err));
 }

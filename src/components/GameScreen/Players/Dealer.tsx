@@ -8,23 +8,23 @@ interface DealerProps {
 
 function Dealer({dealersCards, dealerHandValue }:DealerProps) {
     return (
-        <div className="dealerCards">
-        <div className="cardSection">
-          <div className="backFaceCard">
-            {dealersCards != undefined && dealersCards.length < 2 && <Card key={"back"} card={new Card52("BACK","2")}/>}
+        <div className="dealer">
+          <div className="cardSection">
+            <div className="backFaceCard">
+              {dealersCards != undefined && dealersCards.length < 2 && <Card key={"back"} card={new Card52("BACK","2")} index={0}/>}
+            </div>
+            {dealersCards?.map((card:Card52, index:number) => (
+                      <Card key={index} card={card} index={index = dealersCards.length < 2 ? index+1 : index}/>
+                  ))}
           </div>
-          {dealersCards?.map((card:Card52, index:number) => (
-                    <Card key={index} card={card}/>
-                ))}
-        </div>
-        {dealersCards != undefined && (
+          { dealersCards != undefined &&
           <div className="countContainer">
             <div className="countBox">
               <div className="countLabel">Dealer</div>
               <div className="countValue">{dealerHandValue}</div>
             </div>
           </div>
-        )}
+          }
       </div>
     )
 }

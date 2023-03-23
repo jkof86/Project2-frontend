@@ -1,3 +1,5 @@
+import './Button.css';
+
 interface ButtonProps {
     handleHit: () => void,
     handleStand: () => void
@@ -5,10 +7,10 @@ interface ButtonProps {
 
 function HitOrStand({ handleHit, handleStand }:ButtonProps) {
     return (
-        <div>
-            <button className="hit-btn" onClick={handleHit}>Hit</button>
-            <button className="stand-btn" onClick={handleStand}>Stand</button>
-        </div>
+        <>
+            <button className="hit-btn game-button" onClick={handleHit}>Hit</button>
+            <button className="stand-btn game-button" onClick={handleStand}>Stand</button>
+        </>
     )
 }
 

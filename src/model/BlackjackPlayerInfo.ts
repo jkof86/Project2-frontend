@@ -6,14 +6,14 @@ export class BlackjackPlayerInfo {
     hasTakenTurn: boolean;
     cards: Card52[];
     handValue: number;
-    isHost: boolean;
+    host: boolean;
 
-    constructor(endGameState: string, playerName: string, hasTakenTurn: boolean, cards: Card52[], handValue: number, isHost:boolean) {
+    constructor(endGameState: string, playerName: string, hasTakenTurn: boolean, cards: Card52[], handValue: number, host:boolean) {
         this.endGameState = endGameState;
         this.playerName = playerName;
         this.hasTakenTurn = hasTakenTurn;
         this.cards = cards;
         this.handValue = handValue;
-        this.isHost = isHost;
+        this.host = host;
     }
 };

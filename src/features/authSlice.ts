@@ -71,7 +71,6 @@ export const autoLogin = createAsyncThunk("auth/autoLogin", async () => {
     const response = await apiClient.get("/auth/user", {
       headers: { Authorization: `Bearer ${jwt}` },
     });
-    console.log(response);
     return { ...response.data, jwt };
   } catch (error) {
     console.log(error);
@@ -140,7 +139,6 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(autoLogin.fulfilled, (state, action) => {
-        console.log(action);
         if (action.payload.httpStatus) {
           state.status = "failed";
           state.error = action.payload;
