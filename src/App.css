@@ -13,6 +13,11 @@
   }
 }
 
+img {
+  height: 250px;
+  width: max-content;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +40,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face {
+  font-family: 'Ewert';
+  src: url(./fonts/Ewert-Regular.ttf);
 }

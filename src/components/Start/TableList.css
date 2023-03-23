@@ -1,0 +1,135 @@
+.dropdown-menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 2px 0;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-title {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(
+        to bottom,
+        #6b0202 0%,
+        #6b0202 60%,
+        #520101 100%
+    );
+    color: white;
+    text-align: center;
+
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+
+    font-size: 20px;
+    /* z-index: 1; */
+}
+
+.dropdown-list {
+    padding: 2px;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.dropdown-table {
+    display: block;
+    position: relative;
+    width: 40vw;
+    background-image: linear-gradient(
+        to bottom, 
+        #a80101 0%,
+        #960000 50%,
+        #770303 50%,
+        #6b0202 100%
+        );
+    margin: 2px auto;
+    padding: 10px;
+    /* z-index: 1; */
+}
+.dropdown-table:hover {
+    background-image: linear-gradient(
+        to bottom, 
+        #cf5d5d 0%,
+        #a10c0c 50%,
+        #800808 50%,
+        #770606 100%
+        );
+
+}
+.dropdown-table:disabled {
+    background-image: linear-gradient(
+        to bottom, 
+        #af8383 0%,
+        #9c7171 50%,
+        #835454 50%,
+        #744848 100%
+        );
+}
+/* This overrides default behavior -don't delete- */
+.dropdown-table:disabled:hover {
+    background-image: linear-gradient(
+        to bottom, 
+        #af8383 0%,
+        #9c7171 50%,
+        #835454 50%,
+        #744848 100%
+        );
+}
+/* This overrides parent class -don't delete- */
+.dropdown-table:disabled:active {
+    transform: translateY(0px);
+}
+
+.table-name {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}
+.number-of-players {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.table-is-full {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f12f;
+    border-radius: 4px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+    border-radius: 4px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  @media screen and (max-width: 600px) {
+    .dropdown-table{
+      width: 90vw;
+      text-align: left;
+      padding: 10px 40px;
+    }
+
+    .table-name, .number-of-players, .table-is-full {
+        font-size: 15px;
+    }
+  }

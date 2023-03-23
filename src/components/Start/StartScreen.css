@@ -1,0 +1,67 @@
+.bg {
+  margin-top: 0;  
+  background-image: url("../../images/jesus-eca-6B-IevAR_AE-unsplash.jpg");
+  background-position: center;
+  min-height: 100vh;
+  /* animation: animateBg 10s linear infinite; */
+  background-size: cover;
+}
+
+@keyframes animateBg {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+.grid-container {
+  display: grid; 
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+
+.grid-item {
+  position: relative;
+  margin: 0 auto;
+  font-size: 25px; 
+  font-family: Verdana;
+  font-weight: bold;
+  color: rgb(170, 162, 162);
+}
+
+.new-game-btn {
+  margin: 2vh auto;
+  grid-row: 2 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.start-title {
+  margin: 0 auto;
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.start-h1 {
+  font-size: 7vw;
+  font-weight: 100;
+  background: -webkit-linear-gradient(#f8e2c3,#EC9A29);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Ewert';
+}
+
+.menu-container {
+  grid-row: 3 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.modal {
+  z-index: 2;
+}
