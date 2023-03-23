@@ -90,7 +90,7 @@ const Game = () => {
   useEffect(() => {
     if(gameState == undefined ) return;
     setPlayerList(gameState.players);
-    setThisPlayer(gameState.players[0]);
+    setThisPlayer(gameState.players.find(player => player.playerName == username));
   }, [gameState])
 
   // Leaves the game whenever we exit the page
