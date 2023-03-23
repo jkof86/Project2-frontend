@@ -11,7 +11,7 @@ function Dealer({dealersCards, dealerHandValue }:DealerProps) {
         <div className="dealerCards">
         <div className="cardSection">
           <div className="backFaceCard">
-            {dealersCards != undefined && <Card key={"back"} card={new Card52("BACK","2")}/>}
+            {dealersCards != undefined && dealersCards.length < 2 && <Card key={"back"} card={new Card52("BACK","2")}/>}
           </div>
           {dealersCards?.map((card:Card52, index:number) => (
                     <Card key={index} card={card}/>
