@@ -30,24 +30,22 @@ function Player({ cards, playerName, handValue, endGameState }:BlackjackPlayerIn
     }, [endGameState])
 
     return (
-        <div className="player">
-            <div className="playerCards">
-                <div className="cardSection">
+        <>
+            <div className="cardSection">
                 {cards.map((card:Card52, index:number) => (
-                    <Card key={index} card={card}/>
+                    <Card key={index} card={card} index={index}/>
                 ))}
-                </div>
-                {cards.length != 0 && (
-                <div className="countContainer">
-                    <div className="countBox">
-                        <div className="countLabel">{playerName}</div>
-                        <div className="countValue">{handValue}</div>
-                        <div className="endState">{endState}</div>
-                    </div>
-                </div>
-                )}
             </div>
-        </div>
+            {cards.length != 0 && (
+            <div className="countContainer">
+                <div className="countBox">
+                    <div className="countLabel">{playerName}</div>
+                    <div className="countValue">{handValue}</div>
+                    <div className="endState">{endState}</div>
+                </div>
+            </div>
+            )}
+        </>
     )
 }
 

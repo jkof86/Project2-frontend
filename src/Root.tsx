@@ -15,7 +15,6 @@ export const Root = () => {
   const dispatch = useAppDispatch();
   const csrfToken = useAppSelector((state: RootState) => state.csrf.token);
   const loggedIn = getJwt() != null;
-  console.log(getJwt());
 
   useEffect(() => {
     if (!csrfToken) {

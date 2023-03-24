@@ -37,7 +37,6 @@ function TableList() {
         .then( (response) => {
             const tableList: GameRepresentation[] = response.data;
             setGames(tableList);
-            console.log(response.data);
             dispatch(loadTablesSuccess(tableList));
         })
         .catch( (err) => console.log(err));
