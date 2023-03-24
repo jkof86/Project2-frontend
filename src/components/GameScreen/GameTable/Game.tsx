@@ -10,7 +10,8 @@ import StartGameButton from '../Buttons/StartGameButton';
 import Dealer from '../Players/Dealer';
 import Player from '../Players/Player';
 import './Game.css';
-import { connectToWebSocket, disconnectFromWebSocket, handleStartGame, joinGame, leaveGame, onHitAction, onStandAction } from './GameConnection';
+import LoadScreen from '../LoadScreen/LoadScreen';
+import { checkIfPlayerIsHost, connectToWebSocket, disconnectFromWebSocket, handleStartGame, joinGame, leaveGame, onHitAction, onStandAction } from './GameConnection';
 
 // This component renders the BlackJack Game
 const Game = () => {
@@ -26,14 +27,15 @@ const Game = () => {
   const [playerList, setPlayerList] = useState<BlackjackPlayerInfo[]>();
   const [thisPlayer, setThisPlayer] = useState<BlackjackPlayerInfo>();
   // const [queueState, setQueueState] = useState<QueueState>();
+  const [isHost, setIsHost] = useState<boolean>(false);
 
 
   // Keeps track of the tableId which is in the URL
   let { tableId } = useParams();
 
   // Persistent playerId for leaving games when the component unmounts
-  let persistId:string = "";
-  const setPersistId = (id: string):void => {
+  let persistId: string = "";
+  const setPersistId = (id: string): void => {
     persistId = id;
   }
 
@@ -71,6 +73,7 @@ const Game = () => {
   useEffect(() => {
     // First, we join the game. This gives us a player token.
     joinGame(tableId, username, setPlayerId);
+    checkIfPlayerIsHost(tableId, playerId, setIsHost); // <--- Upon joining a game, checks if player is host
     // Next, we subscribe to the two endpoints, to get game state and queue position updates.
     // We do these at the same time because a player may automatically be moved from the queue to the game.
     // setPlayerId() (which triggers connectToWebSocket() below) is called from inside of joinGame because it must be done asynchronously.
@@ -78,7 +81,7 @@ const Game = () => {
 
   // Initializes the game connection when playerId changes (only when the websocket loads the gamestate the first time)
   useEffect(() => {
-    if(playerId === '') return;
+    if (playerId === '') return;
     setPersistId(playerId);
     console.log("persistId: " + persistId);
     console.log("playerId: " + playerId);
@@ -88,9 +91,10 @@ const Game = () => {
 
   // Updates the local state when gameState changes come from the websocket
   useEffect(() => {
-    if(gameState == undefined ) return;
+    if (gameState == undefined) return;
     setPlayerList(gameState.players);
     setThisPlayer(gameState.players.find(player => player.playerName == username));
+    checkIfPlayerIsHost(tableId, playerId, setIsHost); //<--- Assuming a player disconnecting is a game state change, checks whether host player has changed
   }, [gameState])
 
   // Leaves the game whenever we exit the page
@@ -101,23 +105,41 @@ const Game = () => {
     }
   }, [])
 
+  // If you're not the host and the game has not started yet, you will see loading screen
+  if (!isHost && gameState == undefined) {
+    return <LoadScreen />
+  } else if (gameState != undefined) {
+    let allPlayersDone = true;
+    for (let i = 0; i < gameState?.players.length; i++) {
+      if (gameState?.players[i].endGameState == "STILL_PLAYING") {
+        allPlayersDone = false;
+      }
+
+      if (!allPlayersDone) {
+        return <LoadScreen />
+      }
+    }
+  }
+
+
+
   return (
     <div className="gameBoard">
-      <Dealer dealersCards={gameState?.dealersCards} dealerHandValue={gameState?.dealerHandValue}/>
+      <Dealer dealersCards={gameState?.dealersCards} dealerHandValue={gameState?.dealerHandValue} />
       <div className='players-list'>
-        {playerList?.map((player:BlackjackPlayerInfo) => (
-              <Player key={player.playerName} {...player}/>
-          ))
+        {playerList?.map((player: BlackjackPlayerInfo) => (
+          <Player key={player.playerName} {...player} />
+        ))
         }
       </div>
       {
         cardsDealt && !thisPlayer?.hasTakenTurn ?
-        <HitOrStand handleHit={handleHit} handleStand={handleStand} />:
-        <StartGameButton handleGameStart={dealCards}/>
+          <HitOrStand handleHit={handleHit} handleStand={handleStand} /> :
+          <StartGameButton handleGameStart={dealCards} />
       }
       {
-        isConnected && 
-          <DisconnectButton handleDisconnect={disconnect} />
+        isConnected &&
+        <DisconnectButton handleDisconnect={disconnect} />
       }
     </div>
   );
