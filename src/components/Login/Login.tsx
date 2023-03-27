@@ -53,8 +53,10 @@ const Login: React.FC = () => {
       // set generic error here "Something went wrong with logging in"
       setSubmitting(false);
     }
+    console.log("testing!")
   };
 
+  
   return (
     <div className="background">
       <div className="container">
