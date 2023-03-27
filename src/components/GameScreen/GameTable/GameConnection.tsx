@@ -1,5 +1,6 @@
 import { Client } from "@stomp/stompjs";
 import { AxiosRequestConfig } from "axios";
+import { request } from "http";
 import { BlackjackClientGameState } from "../../../model/BlackjackClientGameState";
 import { QueueState } from "../../../model/QueueState";
 import { BASE_URL, GAME_PORT } from "../../../static/defaults";
@@ -34,7 +35,7 @@ export const connectToWebSocket = (playerId:string, setGameState:(state: Blackja
             console.log("Bigass blob:", JSON.parse(payload.body) as BlackjackClientGameState);
         });
     }
-    
+
     stompClient.onStompError = function (frame) {
         console.log(frame);
     }
@@ -50,7 +51,7 @@ export const disconnectFromWebSocket = () => {
 }
 
 // DOCUMENTATION NEEDED
-export function joinGame(tableId:string|undefined, playerName:string|null, setPlayerId:(id: string)=>void) {
+export function joinGame(tableId: string | undefined, playerName: string | null, setPlayerId: (id: string) => void) {
     const requestConfig: AxiosRequestConfig = {
         headers: {
             Authorization: `Bearer ${jwt}`,
@@ -63,13 +64,16 @@ export function joinGame(tableId:string|undefined, playerName:string|null, setPl
     const PATH = '/joinBlackjackGame';
 
     lobbyClient.put<string>(PATH, {
-    tableId
+        tableId
     }, requestConfig)
-    .then( (res) => {
-        setPlayerId(res.data);
-    })
-    .catch( (err) => console.log(err));
+        .then((res) => {
+            setPlayerId(res.data);
+        })
+        .catch((err) => console.log(err));
+
+
 }
+
 
 // DOCUMENTATION NEEDED
 export const amIHost = (tableId:string|undefined, playerId:string|undefined, setIsHost:(isHost:boolean)=>void) => {
@@ -94,8 +98,10 @@ export const amIHost = (tableId:string|undefined, playerId:string|undefined, set
     .catch( (err) => console.log(err));
 }
 
+
+
 // DOCUMENTATION NEEDED
-export const handleStartGame = (tableId:string|undefined, playerId:string|undefined) => {
+export const handleStartGame = (tableId: string | undefined, playerId: string | undefined) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
@@ -109,21 +115,21 @@ export const handleStartGame = (tableId:string|undefined, playerId:string|undefi
     const PATH = '/startBlackjackGame';
 
     lobbyClient.put(PATH, {
-    tableId
+        tableId
     }, requestConfig)
-    .then( (res) => console.log(res.status))
-    .catch( (err) => console.log(err));
+        .then((res) => console.log(res.status))
+        .catch((err) => console.log(err));
 }
 
 // DOCUMENTATION NEEDED
-export const onHitAction = (tableId:string|undefined, playerId:string) => {
+export const onHitAction = (tableId: string | undefined, playerId: string) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
             Authorization: `Bearer ${jwt}`,
             'gameId': tableId,
             'playerId': playerId,
-            'actionVerb':"HIT",
+            'actionVerb': "HIT",
             'Content-Type': 'application/json'
         }
     }
@@ -131,20 +137,20 @@ export const onHitAction = (tableId:string|undefined, playerId:string) => {
     const PATH = '/blackjackAction';
 
     lobbyClient.put(PATH, {
-    tableId
+        tableId
     }, requestConfig)
-    .catch( (err) => console.log(err));
+        .catch((err) => console.log(err));
 }
 
 // DOCUMENTATION NEEDED
-export const onStandAction = (tableId:string|undefined, playerId:string) => {
+export const onStandAction = (tableId: string | undefined, playerId: string) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
             Authorization: `Bearer ${jwt}`,
             'gameId': tableId,
             'playerId': playerId,
-            'actionVerb':"STAND",
+            'actionVerb': "STAND",
             'Content-Type': 'application/json'
         }
     }
@@ -152,12 +158,12 @@ export const onStandAction = (tableId:string|undefined, playerId:string) => {
     const PATH = '/blackjackAction';
 
     lobbyClient.put(PATH, {
-    tableId
+        tableId
     }, requestConfig)
-    .catch( (err) => console.log(err));
+        .catch((err) => console.log(err));
 }
 
-export const leaveGame = (tableId:string|undefined, playerId:string) => {
+export const leaveGame = (tableId: string | undefined, playerId: string) => {
     const requestConfig: AxiosRequestConfig = {
         baseURL: `http://${BASE_URL}:${GAME_PORT}`,
         headers: {
@@ -171,5 +177,5 @@ export const leaveGame = (tableId:string|undefined, playerId:string) => {
     const PATH = '/leaveBlackjackGame';
 
     lobbyClient.delete(PATH, requestConfig)
-    .catch( (err) => console.log(err));
+        .catch((err) => console.log(err));
 }
