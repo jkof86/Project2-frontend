@@ -1,0 +1,56 @@
+.loadscreen-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    margin: 13% auto 3%;
+    padding: 5%;
+    max-width: 50%;
+    border: ridge 10px rgb(255, 55, 55);
+    border-radius: 18px;
+    background-color: rgb(22, 21, 21);
+}
+
+.loadscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    background-image: url("../../../images/jesus-eca-6B-IevAR_AE-unsplash.jpg");
+    background-position: center;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+.load-header {
+    position: relative;
+    font-family: helvetica;
+    text-transform: uppercase;
+    font-size: 2em;
+    letter-spacing: 4px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #000, #fff, #000);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    animation: animate 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+
+    100% {
+        background-position: 500%;
+    }
+}
+
+.disconnect-btn {
+    margin: 3% auto;
+
+}
+
