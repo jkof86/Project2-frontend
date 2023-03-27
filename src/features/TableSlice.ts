@@ -81,7 +81,6 @@ export const tableSlice = createSlice({
             state,
             action: PayloadAction<GameRepresentation[]>
         ) => {
-            console.log(state);
             state.tableList = action.payload;
             state.error = null;
         },

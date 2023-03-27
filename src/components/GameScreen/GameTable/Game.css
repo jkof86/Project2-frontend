@@ -1,3 +1,11 @@
+.game-screen {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
 .gameBoard {
     height: calc(100vh - 80px);
     width: calc(100vw - 80px);
@@ -6,105 +14,180 @@
     border: 10px solid rgb(27, 27, 27);
     box-sizing: border-box;
     margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: auto auto auto;
+	grid-template-rows: 1fr 1fr;
     padding: 40px;
-}
-  
-.dealerCards, .playerCards {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
 }
 
 .game-button {
-    background-color: #13ade0;
-    border: none;
+    display: inline-block;
+
     color: white;
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 40px;
-    margin: 4px 2px;
+	font-size: 2vw;
+    
     cursor: pointer;
+
+    width: 10vw;
+    
+    margin: 4px 2px;
+    padding: 10px 20px;
+    
     border-radius: 5px;
     border: 2px solid rgb(27, 27, 27);
+    
+    background-color: #13ade0;
 }
-.dealerCards {
-	margin-bottom: 100px;
+
+.dealer {
+	grid-column: 2;
+	grid-row: 1;
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
 }
-  
-.playerCards {
-	margin-top: 100px;
-}
-  
-.cardWrapper {
-	width: 130px;
-	height: 200px;
-	border-radius: 10px;
-	border: 2px solid black;
-	background-color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-}
-  
-.cardWrapper:first-child {
-	margin-right: -60px;
-}
-  
-.cardWrapper:nth-child(2) {
-	margin-right: -30px;
-}
-  
-.cardWrapper:last-child {
-	margin-left: -30px;
-}
-  
-.cardWrapper:last-child:before {
-	content: "";
-	position: absolute;
-	top: -10px;
-	left: -5px;
-	width: 140px;
-	height: 220px;
-	border-radius: 10px;
-	border: 2px solid black;
-	z-index: -1;
+
+/* ==========For Each Player================ */
+
+.player1 {
+	grid-column: 2;
+	grid-row: 2;
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
 }
 
 .cardSection {
-	display: flex;
-	flex-wrap: wrap;
-  }
-  
-  .countContainer {
-	margin-top: 10px;
-  }
-  
-  .countBox {
-	display: inline-block;
-	margin-left: 70px;
-	padding: 10px;
-	background-color: #ffffff;
-	border: 1px solid #000000;
-	border-radius: 5px;
+	position: relative;
+	grid-column: 1;
+	width: 14vw;
+}
+
+.countContainer {
+	position: relative;
+	grid-column: 2;
+	width: 10vw;
+}
+
+.countBox {
+	position: absolute;
+	right: 0;
+	
 	font-size: 24px;
 	color: #000000;
-  }
-  
-  .countLabel {
+	
+	padding: 10px;
+	
+	border-radius: 5px;
+	border: 1px solid #000000;
+
+	background-color: #ffffff;
+}
+
+.countLabel {
 	font-weight: bold;
 	margin-bottom: 5px;
-  }
-  
-  .countValue {
+}
+
+.countValue {
 	font-size: 32px;
 	font-weight: bold;
-  }
+}
+
+/* Specific Player Positioning */
+
+.player2 {
+	/* bottom left */
+	grid-column: 1;
+	grid-row: 2;
+
+	transform: rotate(45deg);
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
+}
+
+.player3 {
+	/* bottom right */
+	grid-column: 3;
+	grid-row: 2;
+
+	transform: rotate(-45deg);
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
+}
+
+.player4 {
+	/* top left */
+	grid-column: 1;
+	grid-row: 1;
+
+	transform: rotate(90deg);
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
+}
+
+.player5 {
+	/* top right */
+	grid-column: 3;
+	grid-row: 1;
+
+	transform: rotate(-90deg);
+
+	display: grid;
+	grid-template-columns: auto auto;
+
+	margin: 6vh auto;
+}
+
+/* ========== At The Bottom of the Page ================ */
+
+.game-controls {
+	position: absolute;
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: 1fr;
+	width: fit-content;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+.disconnect {
+	position: absolute;
+	width: fit-content;
+	bottom: 2vh;
+	right: 4vw;
+}
+
+/* ============= The Start Game Button ============== */
+
+.start-game {
+	position: relative;
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.start-btn {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: fit-content;
+}
