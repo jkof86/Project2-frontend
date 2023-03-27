@@ -74,24 +74,6 @@ export function joinGame(tableId: string | undefined, playerName: string | null,
 
 }
 
-export const checkIfPlayerIsHost = (tableId: string | undefined, playerId: string | undefined, setIsHost: (arg0: boolean) => void) => {
-    const requestConfig: AxiosRequestConfig = {
-        headers: {
-            Authorization: `Bearer ${jwt}`,
-            'gameId': tableId,
-            'playerId': playerId,
-            'Content-Type': 'application/json'
-        }
-    }
-
-    const PATH = "/amIHost";
-
-    lobbyClient.get<boolean>(PATH, requestConfig)
-        .then((res) => {
-            setIsHost(res.data);
-            console.log(res.data);
-        }).catch((err) => console.log(err));
-}
 
 // DOCUMENTATION NEEDED
 export const amIHost = (tableId:string|undefined, playerId:string|undefined, setIsHost:(isHost:boolean)=>void) => {
@@ -116,28 +98,7 @@ export const amIHost = (tableId:string|undefined, playerId:string|undefined, set
     .catch( (err) => console.log(err));
 }
 
-// DOCUMENTATION NEEDED
-export const amIHost = (tableId:string|undefined, playerId:string|undefined, setIsHost:(isHost:boolean)=>void) => {
-    const requestConfig: AxiosRequestConfig = {
-        baseURL: `http://${BASE_URL}:${GAME_PORT}`,
-        headers: {
-            Authorization: `Bearer ${jwt}`,
-            'playerId': playerId,
-            'gameId': tableId,
-            'Content-Type': 'application/json'
-        }
-    }
 
-    const PATH = '/amIHost';
-
-    lobbyClient.get(PATH, requestConfig)
-    .then( (response) => {
-        console.log(response.data);
-        const isHost: boolean = response.data;
-        setIsHost(isHost);
-    })
-    .catch( (err) => console.log(err));
-}
 
 // DOCUMENTATION NEEDED
 export const handleStartGame = (tableId: string | undefined, playerId: string | undefined) => {

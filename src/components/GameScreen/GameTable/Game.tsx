@@ -11,7 +11,7 @@ import Dealer from '../Players/Dealer';
 import Player from '../Players/Player';
 import './Game.css';
 import LoadScreen from '../LoadScreen/LoadScreen';
-import { amIHost, checkIfPlayerIsHost, connectToWebSocket, disconnectFromWebSocket, handleStartGame, joinGame, leaveGame, onHitAction, onStandAction } from './GameConnection';
+import { amIHost, connectToWebSocket, disconnectFromWebSocket, handleStartGame, joinGame, leaveGame, onHitAction, onStandAction } from './GameConnection';
 
 // This component renders the BlackJack Game
 const Game = () => {
@@ -26,7 +26,7 @@ const Game = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [playerList, setPlayerList] = useState<BlackjackPlayerInfo[]>();
   const [thisPlayer, setThisPlayer] = useState<BlackjackPlayerInfo>();
-  const [isHost, setIsHost] = useState<boolean>(false);
+  // const [isHost, setIsHost] = useState<boolean>(false);
   // const [queueState, setQueueState] = useState<QueueState>();
   const [isHost, setIsHost] = useState<boolean>(false);
 
@@ -81,7 +81,7 @@ const Game = () => {
   useEffect(() => {
     // First, we join the game. This gives us a player token.
     joinGame(tableId, username, setPlayerId);
-    checkIfPlayerIsHost(tableId, playerId, setIsHost); // <--- Upon joining a game, checks if player is host
+    amIHost(tableId, playerId, setIsHost); // <--- Upon joining a game, checks if player is host
     // Next, we subscribe to the two endpoints, to get game state and queue position updates.
     // We do these at the same time because a player may automatically be moved from the queue to the game.
     // setPlayerId() (which triggers connectToWebSocket() below) is called from inside of joinGame because it must be done asynchronously.
@@ -101,7 +101,7 @@ const Game = () => {
     console.log(gameState);
     if(gameState == undefined ) return;
     setThisPlayer(gameState.players.find(player => player.playerName == username));
-    checkIfPlayerIsHost(tableId, playerId, setIsHost); //<--- Assuming a player disconnecting is a game state change, checks whether host player has changed
+    amIHost(tableId, playerId, setIsHost); //<--- Assuming a player disconnecting is a game state change, checks whether host player has changed
   }, [gameState])
 
   // This waits for setThisPlayer above ^^ then runs immediately after
@@ -123,21 +123,19 @@ const Game = () => {
 
   // If you're not the host and the game has not started yet, you will see loading screen
   if (!isHost && gameState == undefined) {
-    return <LoadScreen />
-  } else if (gameState != undefined) {
-    let allPlayersDone = true;
-    for (let i = 0; i < gameState?.players.length; i++) {
-      if (gameState?.players[i].endGameState == "STILL_PLAYING") {
-        allPlayersDone = false;
-      }
+    return <LoadScreen setIsConnected={setIsConnected} tableId={tableId} playerId={playerId}/> }
+  // } else if (gameState != undefined) {
+  //   let allPlayersDone = true;
+  //   for (let i = 0; i < gameState?.players.length; i++) {
+  //     if (gameState?.players[i].endGameState == "STILL_PLAYING") {
+  //       allPlayersDone = false;
+  //     }
 
-      if (!allPlayersDone) {
-        return <LoadScreen />
-      }
-    }
-  }
-
-
+  //     if (!allPlayersDone) {
+  //       return <LoadScreen />
+  //     }
+  //   }
+  // }
 
   return (
     <div className='game-screen'>
