@@ -124,18 +124,7 @@ const Game = () => {
   // If you're not the host and the game has not started yet, you will see loading screen
   if (!isHost && gameState == undefined) {
     return <LoadScreen setIsConnected={setIsConnected} tableId={tableId} playerId={playerId}/> }
-  // } else if (gameState != undefined) {
-  //   let allPlayersDone = true;
-  //   for (let i = 0; i < gameState?.players.length; i++) {
-  //     if (gameState?.players[i].endGameState == "STILL_PLAYING") {
-  //       allPlayersDone = false;
-  //     }
-
-  //     if (!allPlayersDone) {
-  //       return <LoadScreen />
-  //     }
-  //   }
-  // }
+  
 
   return (
     <div className='game-screen'>
