@@ -5,7 +5,6 @@ WORKDIR /app
 COPY . /app/
 
 #we configure the container to build the react app
-RUN npm install eslint
 RUN npm install
 RUN npm run build
 
